@@ -1,0 +1,47 @@
+<ion-view view-title="Sign Up">
+  <ion-content class="padding" style="padding-top:20px;" >
+  <div class="head-bar">
+    <div class="header-logo row">
+    </div>
+  </div>
+  <img src="img/BakerMotorCompany_logo.png" style="margin-left:auto; margin-right:auto; display:block;" alt="">
+    <div class="list list-inset">
+      <label class="form-box item item-input">
+        <i class="icon ion-android-person placeholder-icon"></i>
+        <input style="font-size:20px;padding-top:10px;font-family:Brandon;color:grey;" type="text" placeholder="Name" ng-model="data.name">
+      </label>
+
+      <label class="form-box item item-input">
+        <i class="icon ion-ios-email-outline placeholder-icon"></i>
+        <input style="font-size:20px;padding-top:10px;font-family:Brandon;color:grey;" type="email" placeholder="Email" ng-model="data.email">
+      </label>
+
+      <label class = "item item-input item-select">
+         <div class = "input-label">
+            Link Dealership
+         </div>
+         <select ng-model="data.dealership_id" required>
+            <option ng-repeat="dealership in dealerships" value="{{dealership.id}}">{{dealership.name}}</option>
+          </select>
+      </label>
+    </div>
+    <div class="list list-inset">
+      <label class="form-box item item-input">
+        <i class="icon ion-ios-locked-outline placeholder-icon"></i>
+        <input style="font-size:20px;padding-top:10px;font-family:Brandon;color:grey;" type="password" placeholder="Password (min 8 characters)" ng-model="data.password">
+      </label>
+
+      <label class="form-box item item-input">
+      <i class="icon ion-ios-locked-outline placeholder-icon"></i>
+          <input style="font-size:20px;padding-top:10px;font-family:Brandon;color:grey;" type="password" placeholder="Re-Enter Password" ng-model="data.password_confirmation">
+      </label>
+    </div>
+
+    <button style="font-family:Brandon;" class="button button-block button-positive" ng-click="createUser(data)">
+      Sign Up
+    </button>
+    <button ui-sref="login" style="font-family:Brandon;" class="button button-block button-positive">
+      Back
+    </button>
+  </ion-content>
+</ion-view>
