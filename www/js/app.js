@@ -5,19 +5,19 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('otd-baker-motor-app', ['ionic'])
+var app = angular.module('otd-baker-motor-app', ['ionic', 'ionic.cloud']);
 
-.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
 
-    var push = new Ionic.Push({
-      "debug": true
-    });
-
-    push.register(function(token){
-      console.log("My Device Token: ", token.token);
-      push.saveToken(token); // persist the token in the Ionic Platform
-    });
+    // var push = new Ionic.Push({
+    //   "debug": true
+    // });
+    //
+    // push.register(function(token){
+    //   console.log("My Device Token: ", token.token);
+    //   push.saveToken(token); // persist the token in the Ionic Platform
+    // });
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,6 +28,14 @@ var app = angular.module('otd-baker-motor-app', ['ionic'])
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+  });
+});
+
+app.config(function($ionicCloudProvider){
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "3a5069a7"
     }
   });
 });
