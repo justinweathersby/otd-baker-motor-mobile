@@ -1,5 +1,14 @@
 app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
 
+  $scope.$on('cloud:push:notification', function(event, data) {
+    var msg = data.message;
+    var alertPopup = $ionicPopup.alert({
+      title: msg.title,
+      template: msg.text
+    });
+    // alert(msg.title + ': ' + msg.text);
+  });
+
   $scope.login = function(user) {
     $ionicLoading.show({
      template: '<p style="font-family:Brandon;color:grey;">Logging in</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',

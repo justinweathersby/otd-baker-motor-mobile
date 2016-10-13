@@ -1,4 +1,12 @@
 app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
+  $scope.$on('cloud:push:notification', function(event, data) {
+    var msg = data.message;
+    var alertPopup = $ionicPopup.alert({
+      title: msg.title,
+      template: msg.text
+    });
+  });
+
   $ionicLoading.show({
     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
   });

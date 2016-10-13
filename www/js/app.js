@@ -7,8 +7,41 @@
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('otd-baker-motor-app', ['ionic', 'ionic.cloud']);
 
-app.run(function($ionicPlatform) {
+app.config(function($ionicCloudProvider){
+  $ionicCloudProvider.init({
+    "core": {
+      "app_id": "3a5069a7"
+    },
+    "push": {
+      "sender_id": "619003736575",
+      "pluginConfig": {
+        "ios": {
+          "badge": true,
+          "alert": true,
+          "sound": true
+        },
+        "android": {
+          "iconColor": "#343434"
+        }
+      }
+    }
+  });
+});
+
+app.run(function($ionicPlatform, $ionicPush) {
   $ionicPlatform.ready(function() {
+
+    $ionicPush.register().then(function(t) {
+      return $ionicPush.saveToken(t);
+    }).then(function(t) {
+      console.log('Push Token Saved:', t.token);
+      console.log('Token Valid?: ', t.valid ? 1 : 0);
+      console.log('Token type: ', t.type);
+      console.log('App Id: ', t.app_id);
+    });
+
+
+
 
     // var push = new Ionic.Push({
     //   "debug": true
@@ -28,14 +61,6 @@ app.run(function($ionicPlatform) {
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
-    }
-  });
-});
-
-app.config(function($ionicCloudProvider){
-  $ionicCloudProvider.init({
-    "core": {
-      "app_id": "3a5069a7"
     }
   });
 });
