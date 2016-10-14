@@ -1,4 +1,12 @@
 {
   "name": "otd-baker-motor-mobile",
-  "app_id": "3a5069a7"
+  "app_id": "3a5069a7",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

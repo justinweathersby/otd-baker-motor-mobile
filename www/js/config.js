@@ -20,17 +20,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
 
-  .state('testnew', {
-    url: '/testnew',
-    templateUrl: 'templates/testnew.html',
-    controller: 'DashCtrl'
-  })
-
   //setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'DashCtrl'
   })
 
   // Each tab has its own nav history stack:
@@ -54,12 +49,32 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })
 
+  .state('tab.service',{
+    url: '/service',
+    views: {
+      'tab-service':{
+        templateUrl: 'templates/tab-service.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+
+  .state('tab.specials',{
+    url: '/specials',
+    views: {
+      'tab-specials':{
+        templateUrl: 'templates/tab-specials.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+
   .state('tab.used-cars',{
     url: '/used_cars',
     views: {
-      'tab-used-cars':{
+      'tab-dash':{
         templateUrl: 'templates/tab-used-cars.html',
-        controller: 'UsedCarsCtrl'
+        controller: 'DashCtrl'
       }
     }
   })
@@ -67,7 +82,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('tab.new-cars',{
     url: '/new_cars',
     views: {
-      'tab-new-cars':{
+      'tab-dash':{
         templateUrl: 'templates/tab-new-cars.html',
         controller: 'DashCtrl'
       }
