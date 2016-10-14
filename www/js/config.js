@@ -69,6 +69,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })
 
+  .state('tab.more',{
+    url: '/more',
+    views: {
+      'tab-more':{
+        templateUrl: 'templates/tab-more.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+
+
   .state('tab.used-cars',{
     url: '/used_cars',
     views: {
