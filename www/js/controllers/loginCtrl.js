@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
+app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService,DEALERSHIP_API) {
 
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
@@ -9,6 +9,7 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     // alert(msg.title + ': ' + msg.text);
   });
 
+
   $scope.login = function(user) {
     $ionicLoading.show({
      template: '<p style="font-family:Brandon;color:grey;">Logging in</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',
@@ -16,10 +17,13 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     });
 
     if ($scope.loginForm.$valid){
+
+
+
       authService.login(user).success(function(){
         $ionicLoading.hide();
         console.log('Login Success, Token: ', currentUserService.token);
-        console.log('Sign-In', user);
+        console.log('Sign-In', JSON.stringify(user, null, 4));
         // localStorage.setItem('user', user.email);
         // alert(user.email);
         // alert(localStorage.getItem('user'));

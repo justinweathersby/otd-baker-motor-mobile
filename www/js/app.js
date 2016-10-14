@@ -28,20 +28,18 @@ app.config(function($ionicCloudProvider){
   });
 });
 
-app.run(function($ionicPlatform, $ionicPush) {
+app.run(function($ionicPlatform, $ionicPush, currentUserService) {
   $ionicPlatform.ready(function() {
 
     $ionicPush.register().then(function(t) {
       return $ionicPush.saveToken(t);
     }).then(function(t) {
+      currentUserService.device_token = t.token;
+      currentUserService.device_type = t.type;
       console.log('Push Token Saved:', t.token);
-      console.log('Token Valid?: ', t.valid ? 1 : 0);
       console.log('Token type: ', t.type);
-      console.log('App Id: ', t.app_id);
+      console.log('Inside Run..CurrentUser: ', JSON.stringify(currentUserService, null, 4));
     });
-
-
-
 
     // var push = new Ionic.Push({
     //   "debug": true
