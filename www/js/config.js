@@ -58,8 +58,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/used_cars',
     views: {
       'tab-used-cars':{
-        templateUrl: 'templates/tab-used-cars.html'
-        // controller: 'UsedCarsCtrl'
+        templateUrl: 'templates/tab-used-cars.html',
+        controller: 'UsedCarsCtrl'
       }
     }
   })
@@ -68,8 +68,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/new_cars',
     views: {
       'tab-new-cars':{
-        templateUrl: 'templates/tab-new-cars.html'
-        // controller: 'NewCarsCtrl'
+        templateUrl: 'templates/tab-new-cars.html',
+        controller: 'DashCtrl'
       }
     }
   });
