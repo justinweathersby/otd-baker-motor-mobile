@@ -41,15 +41,8 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
       console.log('Inside Run..CurrentUser: ', JSON.stringify(currentUserService, null, 4));
     });
 
-    // var push = new Ionic.Push({
-    //   "debug": true
-    // });
-    //
-    // push.register(function(token){
-    //   console.log("My Device Token: ", token.token);
-    //   push.saveToken(token); // persist the token in the Ionic Platform
-    // });
-
+    TestFairy.begin("993218db594324f249e28bfa5a72f74f0d21732d");
+    
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
