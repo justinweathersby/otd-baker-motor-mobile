@@ -1,0 +1,8 @@
+
+.holds-the-iframe {
+  height:100%;
+  background-image: url(/img/box.gif);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
