@@ -104,6 +104,26 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'DashCtrl'
       }
     }
+  })
+
+  .state('tab.parts',{
+    url: '/parts',
+    views: {
+      'tab-dash':{
+        templateUrl: 'templates/tab-parts.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+
+  .state('tab.financing',{
+    url: '/financing',
+    views: {
+      'tab-dash':{
+        templateUrl: 'templates/tab-financing.html',
+        controller: 'DashCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
