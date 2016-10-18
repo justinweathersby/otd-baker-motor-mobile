@@ -64,7 +64,7 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
       console.log(error);
       $ionicPopup.alert({
          title: 'Woops..',
-         content: 'The email you have entered does not exist in Chatter\'s records'
+         content: 'The email you have entered does not exist in our records'
        });
        $state.go('signup');
     });
