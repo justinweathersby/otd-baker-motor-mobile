@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('otd-baker-motor-app', ['ionic', 'ionic.cloud']);
+var app = angular.module('otd-baker-motor-app', ['ionic', 'ionic.cloud' ]);
 
 app.config(function($ionicCloudProvider){
   $ionicCloudProvider.init({
@@ -42,7 +42,7 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
     });
 
     TestFairy.begin("993218db594324f249e28bfa5a72f74f0d21732d");
-    
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

@@ -27,9 +27,48 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
         $ionicLoading.hide();
       }
   );
+
+  $scope.contactSales = function(){
+    console.log("contact slaes button is being pushed");
+    window.plugin.email.open({
+         to:      $scope.dealership.sales_email,
+         subject: $scope.dealership.name + ' Sales Inquiry',
+         body:    currentUserService.name + ': '
+         }, function () {
+             console.log('email view dismissed');
+             $ionicPopup.alert({
+                     title: 'Email Not Sent',
+                     content: 'You have selected to exit out before sending the email.'
+                   });
+         },
+         this);
+  };
+
+  $scope.contactService = function(){
+    console.log("contact slaes button is being pushed");
+    window.plugin.email.open({
+         to:      $scope.dealership.service_email,
+         subject: $scope.dealership.name + ' Service Inquiry',
+         body:    currentUserService.name + ': '
+         }, function () {
+             console.log('email view dismissed');
+             $ionicPopup.alert({
+                     title: 'Email Not Sent',
+                     content: 'You have selected to exit out before sending the email.'
+                   });
+         },
+         this);
+  };
+
+
+
+
+
+
+
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
-  }
+  };
 
   $scope.goToNew = function() {
     console.log("Go to New Cars.... state?");
