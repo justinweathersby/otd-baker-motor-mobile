@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('otd-baker-motor-app', ['ionic', 'ionic.cloud' ]);
 
-app.config(function($ionicCloudProvider){
+app.config(function($ionicCloudProvider, $compileProvider){
   $ionicCloudProvider.init({
     "core": {
       "app_id": "3a5069a7"
@@ -26,6 +26,9 @@ app.config(function($ionicCloudProvider){
       }
     }
   });
+
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|map|geo|skype):/);
+
 });
 
 app.run(function($ionicPlatform, $ionicPush, currentUserService) {

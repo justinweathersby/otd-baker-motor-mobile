@@ -18,6 +18,8 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
           console.log('Return Data From Get Dealerships/ from Api:', JSON.stringify(data, null, 4));
 
           $scope.dealership = data;
+          $scope.dealership.full_location_string = "maps:?q=" + $scope.dealership.location.street + ' ' + $scope.dealership.location.city + ', ' + $scope.dealership.location.state + ' ' +$scope.dealership.location.zipcode;
+          console.log('Location of dealership:', $scope.dealership.location.street);
           $ionicLoading.hide();
         }
       )
@@ -58,6 +60,16 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
                    });
          },
          this);
+  };
+
+  $scope.goToMaps = function(){
+    // var geoString = 'maps://?q='+dest.Latitude+','+dest.Longitude+'';
+    window.open($scope.dealership.full_location_string, '_system');
+  };
+
+  $scope.callDealership = function(){
+    var telephone = 'tel:'+$scope.dealership.phone;
+    window.open(telephone, '_system');
   };
 
 
