@@ -19,6 +19,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
     controller: 'SignupCtrl'
   })
 
+  .state('forgot-password', {
+    url: '/forgot-password',
+    templateUrl: 'templates/forgot-password.html',
+    controller: 'LoginCtrl'
+  })
+
 
   //setup an abstract state for the tabs directive
   .state('tab', {

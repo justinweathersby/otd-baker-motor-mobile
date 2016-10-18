@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService,DEALERSHIP_API) {
+app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
 
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
@@ -17,9 +17,6 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     });
 
     if ($scope.loginForm.$valid){
-
-
-
       authService.login(user).success(function(){
         $ionicLoading.hide();
         console.log('Login Success, Token: ', currentUserService.token);
@@ -41,6 +38,39 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
       });
     }
   }; //end of login function
+
+  $scope.resetPassword = function(email) {
+
+    $ionicLoading.show({
+     template: '<p style="font-family:Brandon;color:grey;">Checking to see if your account exists..</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',
+     hideOnStageChange: true
+    });
+
+    $http({method: 'POST', url: DEALERSHIP_API.url + '/reset_password?email=' + email})
+      .success( function( data )
+      {
+        $ionicLoading.hide();
+        console.log('Return Data From Reset Password Api:', data)
+        $ionicPopup.alert({
+           title: 'Thank You',
+           content: 'An email has been sent to the email provided with instructions to reset your password.'
+         });
+         $state.go('login');
+      }
+    )
+    .error( function(error)
+    {
+      $ionicLoading.hide();
+      console.log(error);
+      $ionicPopup.alert({
+         title: 'Woops..',
+         content: 'The email you have entered does not exist in Chatter\'s records'
+       });
+       $state.go('signup');
+    });
+  };//end of reset password function
+
+
   $scope.goToSignUp = function() {
     $state.go('signup');
   };
@@ -49,7 +79,8 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     $state.go('login');
   };
 
-  // $scope.goToForgotPassword = function() {
-  //   $state.go('forgot-password');
-  // };
+  $scope.goToForgotPassword = function() {
+    $state.go('forgot-password');
+  };
+
 });
