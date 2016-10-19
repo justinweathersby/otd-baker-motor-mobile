@@ -10,6 +10,9 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
   $ionicLoading.show({
     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
   });
+
+
+
   $http({ method: 'GET',
           url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id
         })
@@ -61,6 +64,12 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
          },
          this);
   };
+
+
+
+
+
+
 
   $scope.goToMaps = function(){
     // var geoString = 'maps://?q='+dest.Latitude+','+dest.Longitude+'';
