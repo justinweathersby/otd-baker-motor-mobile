@@ -21,3 +21,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+.button-bar{
+  a.button{
+    line-height: 50px;
+    margin: auto 4.5%;
+    width:40%;
+  }
+}
+
+.has-tabs, .bar-footer.has-tabs {
+    bottom: 49px;
+}
+
+.bar-footer{
+  height: 60px;
+}
