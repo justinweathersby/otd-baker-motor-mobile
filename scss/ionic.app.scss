@@ -19,23 +19,6 @@ $positive:                        #114926 !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
-$bar-height: 100px;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
-.button-bar{
-  a.button{
-    line-height: 50px;
-    margin: auto 4.5%;
-    width:40%;
-  }
-}
-
-.has-tabs, .bar-footer.has-tabs {
-    bottom: 49px;
-}
-
-.bar-footer{
-  height: 60px;
-}

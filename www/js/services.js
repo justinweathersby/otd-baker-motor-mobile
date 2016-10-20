@@ -50,6 +50,8 @@ app.service('authService', function($http, currentUserService, DEALERSHIP_API){
   }; //--End of login function
 
   this.logout = function(user){
-    return  $http({method: 'POST', url: DEALERSHIP_API.url + '/logout', headers: {'Authorization' : user.token}});
+    // localStorage.clear();
+    // $state.go('login');
+    // return  $http({method: 'POST', url: DEALERSHIP_API.url + '/logout', headers: {'Authorization' : user.token}});
   };// --End of logout function
 });

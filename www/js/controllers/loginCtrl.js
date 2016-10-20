@@ -1,4 +1,15 @@
 app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
+  var user = localStorage.getItem('user');
+  if(user !== null)
+  {
+    currentUserService.token = localStorage.getItem('token');
+    currentUserService.id = localStorage.getItem('id');
+    currentUserService.name = localStorage.getItem('name');
+    currentUserService.email = user;
+    currentUserService.dealership_id = localStorage.getItem('dealership_id');
+
+    $state.go('tab.dash');
+  }
 
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
@@ -19,13 +30,16 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     if ($scope.loginForm.$valid){
       authService.login(user).success(function(){
         $ionicLoading.hide();
-        console.log('Login Success, Token: ', currentUserService.token);
-        console.log('Sign-In', JSON.stringify(user, null, 4));
-        // localStorage.setItem('user', user.email);
+        // console.log('Login Success, Token: ', currentUserService.token);
+        // console.log('Sign-In', JSON.stringify(user, null, 4));
+        localStorage.setItem('user', user.email);
+        localStorage.setItem('dealership_id', currentUserService.dealership_id);
+        localStorage.setItem('name', currentUserService.name);
+
         // alert(user.email);
         // alert(localStorage.getItem('user'));
-        // localStorage.setItem('token', currentUserService.token);
-        // localStorage.setItem('id', currentUserService.id);
+        localStorage.setItem('token', currentUserService.token);
+        localStorage.setItem('id', currentUserService.id);
         //window.location.reload();
         $state.go('tab.dash');
       }).error(function()

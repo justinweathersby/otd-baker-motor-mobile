@@ -87,4 +87,11 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
   $scope.goToUsed = function() {
     $state.go('tab.used-cars');
   };
+
+  $scope.logout = function() {
+    console.log("Inside logout function");
+    localStorage.clear();
+    console.log("LocalStorage User: ", localStorage.getItem('user'));
+    $state.go('login');
+  };
 });
