@@ -1,4 +1,4 @@
-app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
+app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, $ionicHistory, DEALERSHIP_API) {
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
     var alertPopup = $ionicPopup.alert({
@@ -90,7 +90,9 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
   $scope.logout = function() {
     console.log("Inside logout function");
     localStorage.clear();
+    $ionicHistory.clearCache();
+    $ionicHistory.clearHistory();
     console.log("LocalStorage User: ", localStorage.getItem('user'));
-    $state.go('login');
+    $state.go('login', {}, {reload:true});
   };
 });

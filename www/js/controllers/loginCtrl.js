@@ -81,7 +81,7 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
 
 
   $scope.goToSignUp = function() {
-    $state.go('signup');
+    $state.go('dealership-list');
   };
 
   $scope.goToLogin = function() {

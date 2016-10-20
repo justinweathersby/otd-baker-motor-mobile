@@ -16,14 +16,15 @@
         <input style="font-size:20px;padding-top:10px;font-family:Brandon;color:grey;" type="email" placeholder="Email" ng-model="data.email">
       </label>
 
-      <label class = "item item-input item-select">
+      <!-- <input type="hidden" ng-model="data.dealership_id" ng-value="dealership_id_from_list" /> -->
+      <!-- <label class = "item item-input item-select">
          <div class = "input-label">
             Link Dealership
          </div>
          <select ng-model="data.dealership_id" required>
             <option ng-repeat="dealership in dealerships" value="{{dealership.id}}">{{dealership.name}}</option>
           </select>
-      </label>
+      </label> -->
     </div>
     <div class="list list-inset">
       <label class="form-box item item-input">
@@ -40,7 +41,7 @@
     <button style="font-family:Brandon; background-color: #114926;" class="button button-block button-positive" ng-click="createUser(data)">
       Sign Up
     </button>
-    <button ui-sref="login" style="font-family:Brandon; background-color: #114926;" class="button button-block button-positive">
+    <button ui-sref="dealership-list" style="font-family:Brandon; background-color: #114926;" class="button button-block button-positive">
       Back
     </button>
   </ion-content>

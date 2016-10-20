@@ -13,6 +13,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
       controller: 'LoginCtrl'
   })
 
+  .state('dealership-list', {
+    url: '/dealership-list',
+    templateUrl: 'templates/dealership-list.html',
+    controller: 'SignupCtrl'
+  })
+
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html',
@@ -24,7 +30,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/forgot-password.html',
     controller: 'LoginCtrl'
   })
-
 
   //setup an abstract state for the tabs directive
   .state('tab', {

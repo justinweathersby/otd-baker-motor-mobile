@@ -21,6 +21,14 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
       }
   );
 
+  $scope.dealershipSelected = function(dealership_id){
+    console.log("Inside dealershipSelected dealerid: ", dealership_id);
+    if (dealership_id != null){
+      currentUserService.dealership_id = dealership_id;
+      $state.go('signup');
+    }
+  }
+
   $scope.createUser = function(user)
   {
     $ionicLoading.show({
@@ -33,7 +41,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
                                                        name: user.name,
                                                        device_token: currentUserService.device_token,
                                                        device_type: currentUserService.device_type,
-                                                       dealership_id: user.dealership_id}})
+                                                       dealership_id: currentUserService.dealership_id}})
   	.success( function (data) {
       $ionicLoading.hide();
       console.log("Returned Sign Up Success Data> ");
@@ -42,15 +50,13 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
       currentUserService.id = data.user.id;
       currentUserService.name = data.user.name;
       currentUserService.email = data.user.email;
-      currentUserService.dealership_id = data.user.dealership_id
+      // currentUserService.dealership_id = data.user.dealership_id
 
       localStorage.setItem('user', currentUserService.email);
       localStorage.setItem('dealership_id', currentUserService.dealership_id);
       localStorage.setItem('name', currentUserService.name);
       localStorage.setItem('token', currentUserService.token);
       localStorage.setItem('id', currentUserService.id);
-
-      // authService.login(user);
 
       $state.go('tab.dash');
   	})
