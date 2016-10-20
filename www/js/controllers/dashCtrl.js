@@ -65,12 +65,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
          this);
   };
 
-
-
-
-
-
-
   $scope.goToMaps = function(){
     // var geoString = 'maps://?q='+dest.Latitude+','+dest.Longitude+'';
     window.open($scope.dealership.full_location_string, '_system');
@@ -80,12 +74,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
     var telephone = 'tel:'+$scope.dealership.phone;
     window.open(telephone, '_system');
   };
-
-
-
-
-
-
 
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);

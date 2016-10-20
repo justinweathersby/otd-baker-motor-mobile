@@ -75,6 +75,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
   })
 
+  .state('tab.service-specials',{
+    url: '/service_specials',
+    views: {
+      'tab-specials':{
+        templateUrl: 'templates/tab-service-specials.html',
+        controller: 'DashCtrl'
+      }
+    }
+  })
+
   .state('tab.more',{
     url: '/more',
     views: {
