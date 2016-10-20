@@ -17,7 +17,6 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
       title: msg.title,
       template: msg.text
     });
-    // alert(msg.title + ': ' + msg.text);
   });
 
 
@@ -30,17 +29,13 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     if ($scope.loginForm.$valid){
       authService.login(user).success(function(){
         $ionicLoading.hide();
-        // console.log('Login Success, Token: ', currentUserService.token);
-        // console.log('Sign-In', JSON.stringify(user, null, 4));
+
         localStorage.setItem('user', user.email);
         localStorage.setItem('dealership_id', currentUserService.dealership_id);
         localStorage.setItem('name', currentUserService.name);
-
-        // alert(user.email);
-        // alert(localStorage.getItem('user'));
         localStorage.setItem('token', currentUserService.token);
         localStorage.setItem('id', currentUserService.id);
-        //window.location.reload();
+
         $state.go('tab.dash');
       }).error(function()
       {

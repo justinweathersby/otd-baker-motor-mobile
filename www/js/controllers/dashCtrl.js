@@ -66,7 +66,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
   };
 
   $scope.goToMaps = function(){
-    // var geoString = 'maps://?q='+dest.Latitude+','+dest.Longitude+'';
     window.open($scope.dealership.full_location_string, '_system');
   };
 

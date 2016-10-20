@@ -20,16 +20,6 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
         $ionicLoading.hide();
       }
   );
-  //--TODO: Replace with actual api call
-  // $scope.daysOfWeek = [
-  //     {id: 0, name: 'BMW of Willm'},
-  //     {id: 1, name: 'Monday'},
-  //     {id: 2, name: 'Tuesday'},
-  //     {id: 3, name: 'Wednesday'},
-  //     {id: 4, name: 'Thursday'},
-  //     {id: 5, name: 'Friday'},
-  //     {id: 6, name: 'Saturday'}
-  //  ];
 
   $scope.createUser = function(user)
   {
@@ -54,6 +44,12 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
       currentUserService.email = data.user.email;
       currentUserService.dealership_id = data.user.dealership_id
 
+      localStorage.setItem('user', currentUserService.email);
+      localStorage.setItem('dealership_id', currentUserService.dealership_id);
+      localStorage.setItem('name', currentUserService.name);
+      localStorage.setItem('token', currentUserService.token);
+      localStorage.setItem('id', currentUserService.id);
+
       // authService.login(user);
 
       $state.go('tab.dash');
@@ -65,7 +61,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
       console.log(JSON.stringify(error, null, 4));
       $ionicLoading.hide();
       var alertPopup = $ionicPopup.alert({
-        title: 'Sorry',
+        title: 'Well, We Have A Problem...',
         template: error.errors
       });
     });
