@@ -33,6 +33,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
   //setup an abstract state for the tabs directive
   .state('tab', {
+    cache: false,
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html',
@@ -41,6 +42,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
   // Each tab has its own nav history stack:
   .state('tab.dash', {
+    cache: false,
     url: '/dash',
     views: {
       'tab-dash': {
@@ -61,6 +63,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('tab.service',{
+    cache: false,
     url: '/service',
     views: {
       'tab-service':{
@@ -71,6 +74,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('tab.specials',{
+    cache: false,
     url: '/specials',
     views: {
       'tab-specials':{
@@ -81,6 +85,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('tab.service-specials',{
+    cache: false,
     url: '/service_specials',
     views: {
       'tab-specials':{
@@ -102,6 +107,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
   .state('tab.used-cars',{
+    cache: false,
     url: '/used_cars',
     views: {
       'tab-dash':{
@@ -112,6 +118,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('tab.new-cars',{
+    cache: false,
     url: '/new_cars',
     views: {
       'tab-dash':{
@@ -122,6 +129,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('tab.parts',{
+    cache: false,
     url: '/parts',
     views: {
       'tab-dash':{
@@ -132,6 +140,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
 
   .state('tab.financing',{
+    cache: false,
     url: '/financing',
     views: {
       'tab-dash':{

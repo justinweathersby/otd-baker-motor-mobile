@@ -1,4 +1,4 @@
-app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, $ionicHistory, DEALERSHIP_API) {
+app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, $ionicHistory, DEALERSHIP_API) {
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
     var alertPopup = $ionicPopup.alert({
@@ -12,6 +12,9 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
   });
 
 
+  $scope.inAppBrowser = null;
+  $scope.inAppBrowswerOpen = 0;
+
 
   $http({ method: 'GET',
           url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id
@@ -21,6 +24,7 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
           console.log('Return Data From Get Dealerships/ from Api:', JSON.stringify(data, null, 4));
 
           $scope.dealership = data;
+          $scope.iframeFriendly = data.iframeFriendly;
           $scope.dealership.full_location_string = "maps:?q=" + $scope.dealership.location.street + ' ' + $scope.dealership.location.city + ', ' + $scope.dealership.location.state + ' ' +$scope.dealership.location.zipcode;
           console.log('Location of dealership:', $scope.dealership.location.street);
           $ionicLoading.hide();
@@ -65,9 +69,24 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
          this);
   };
 
-  $scope.openLinkInBrowser = function(){
-    window.open($scope.dealership.service_url, '_blank', 'location=yes');
+
+  $scope.openLinkInBrowser = function(url){
+    if ($scope.inAppBrowswerOpen == 0){
+      $scope.inAppBrowswerOpen = 1;
+      $ionicPlatform.ready(function() {
+        var inAppBrowser = window.open(url, '_blank', 'location=yes');
+
+        // inAppBrowser.addEventListener('loadstop', $scope.replaceHeaderImage);
+        inAppBrowser.addEventListener('exit', function(event){
+          $state.go('tab.dash');
+          console.log("in app broswer close event");
+          // $scope.inAppBrowswerOpen = 0;
+
+        });
+      });
+    }
   };
+
 
   $scope.goToMaps = function(){
     window.open($scope.dealership.full_location_string, '_system');
