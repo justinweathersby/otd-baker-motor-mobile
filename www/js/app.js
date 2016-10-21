@@ -59,32 +59,31 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
   });
 });
 
-function iframeOnload(){
-  console.log("iframeOnload function has been called")
-  var ifr = document.getElementById('iframe');
-  var anchors = ifr.contentDocument.getElementsByTagName('a');
-  for (var i in anchors) {
-      anchors[i].setAttribute('target', '_parent');
-  };
+function checkForCross(fr)
+{
+  console.log("Inside checkforcross this: ", fr);
+  var html = null;
+  var doc = fr.contentDocument || fr.contentWindow.document;
+  html = doc.body.innerHTML;
+  try{
+    var doc = fr.contentDocument || fr.contentWindow.document;
+    console.log("Doc:: ", doc);
+    html = doc.body.innerHTML;
+  } catch(err){
+
+  }
+  console.log("Doc:: ", doc);
+  console.log("Html:: ", html);
+    // return (html !== null);
+    if(html !== null){
+      alert('good to go');
+    }
+    else {
+      alert('got nothing man');
+    }
+  // if (!fr.contentDocument.location) alert('Cross domain');
+  // console.log("Inside Check for Cross function");
+  // var iframe = angular.element(document.getElementById("iframeServ"));
+  // console.log(JSON.stringify(iframe, null, 4));
+
 };
-
-
-//
-// var myIframe = document.getElementById("iframe");
-// var script = myIframe.contentWindow.document.createElement("script");
-// script.type = "text/javascript";
-// script.src = "base target='_parent'";
-// myIframe.contentWindow.document.body.appendChild(script)
-
-// $iframe.contents().find("body").append('Test');
-//
-// ionic.DomUtil.ready(function(){
-//   // Remove assertive (red) style to use balanced (green)
-//   angular.element(document.querySelector('#iframe')).
-//
-//   // Change bar text
-//   angular.element(document.querySelector('#status'))
-//   .text('Ready');
-// });
-
-// $document.find("#iframe").contents().find("head").append('Test in head section');

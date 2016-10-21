@@ -74,4 +74,8 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
 
   };
 
+  $scope.goToLogin = function() {
+    $state.go('login');
+  };
+
 });

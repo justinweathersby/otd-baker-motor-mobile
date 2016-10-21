@@ -65,6 +65,10 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
          this);
   };
 
+  $scope.openLinkInBrowser = function(){
+    window.open($scope.dealership.service_url, '_blank', 'location=yes');
+  };
+
   $scope.goToMaps = function(){
     window.open($scope.dealership.full_location_string, '_system');
   };
@@ -95,4 +99,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $ionicLoading, $state, 
     console.log("LocalStorage User: ", localStorage.getItem('user'));
     $state.go('login', {}, {reload:true});
   };
+
+
 });
