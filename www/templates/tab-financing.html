@@ -1,9 +1,10 @@
 <ion-view >
     <ion-content overflow-scroll="true">
       <ion-content overflow-scroll="true" has-footer="true">
-        <div ng-if="::dealership.service_url == ''" ng-init="noUrlAlertAndRedirect('Financing')">
+        <div ng-if="::dealership.financing_url == ''">
+          {{noUrlAlertAndRedirect('Financing')}}
         </div>
-        <div ng-if="::dealership.service_url != ''">
+        <div ng-if="::dealership.financing_url != ''" style="height:100%;">
           <div ng-if="::dealership.iframeFriendly == 0">
             {{openLinkInBrowser(dealership.financing_url)}}
           </div>

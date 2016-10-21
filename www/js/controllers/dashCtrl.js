@@ -14,6 +14,7 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
 
   $scope.inAppBrowser = null;
   $scope.inAppBrowswerOpen = 0;
+  $scope.urlSourceErrorOpen = 0;
 
 
   $http({ method: 'GET',
@@ -88,12 +89,15 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
   };
 
   $scope.noUrlAlertAndRedirect = function(fromString){
+    if($scope.urlSourceErrorOpen == 0){
+      $scope.urlSourceErrorOpen = 1;
       console.log("Inside no url alert and redirect");
       var alertPopup = $ionicPopup.alert({
         title: "Sorry",
         template: "There is no link to " + fromString
       });
       $state.go('tab.dash');
+    }
 
   };
 
