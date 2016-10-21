@@ -87,6 +87,16 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
     }
   };
 
+  $scope.noUrlAlertAndRedirect = function(fromString){
+      console.log("Inside no url alert and redirect");
+      var alertPopup = $ionicPopup.alert({
+        title: "Sorry",
+        template: "There is no link to " + fromString
+      });
+      $state.go('tab.dash');
+
+  };
+
 
   $scope.goToMaps = function(){
     window.open($scope.dealership.full_location_string, '_system');
