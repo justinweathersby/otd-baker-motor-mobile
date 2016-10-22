@@ -46,6 +46,14 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
         });
       });
     }
+    else{
+      console.log("Invalid form data");
+      $ionicLoading.hide();
+      var alertPopup = $ionicPopup.alert({
+        title: 'Login Unsuccessful',
+        template: "Email must be in correct format and password cannot be empty"
+      });
+    }
   }; //end of login function
 
   $scope.resetPassword = function(email) {

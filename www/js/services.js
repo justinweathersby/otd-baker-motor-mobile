@@ -45,7 +45,6 @@ app.service('authService', function($http, currentUserService, DEALERSHIP_API){
     .error( function(error)
     {
       console.log(error);
-
     });
   }; //--End of login function
 
