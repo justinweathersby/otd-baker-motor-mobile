@@ -36,7 +36,7 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
         localStorage.setItem('token', currentUserService.token);
         localStorage.setItem('id', currentUserService.id);
 
-        $state.go('tab.dash');
+        $state.go('tab.dash', {}, {reload:true});
       }).error(function()
       {
         $ionicLoading.hide();
