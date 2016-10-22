@@ -101,7 +101,6 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
 
   };
 
-
   $scope.goToMaps = function(){
     window.open($scope.dealership.full_location_string, '_system');
   };
@@ -132,6 +131,4 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
     console.log("LocalStorage User: ", localStorage.getItem('user'));
     $state.go('login', {}, {reload:true});
   };
-
-
 });

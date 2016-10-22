@@ -47,7 +47,6 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
       });
     }
     else{
-      console.log("Invalid form data");
       $ionicLoading.hide();
       var alertPopup = $ionicPopup.alert({
         title: 'Login Unsuccessful',
@@ -67,7 +66,6 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
       .success( function( data )
       {
         $ionicLoading.hide();
-        console.log('Return Data From Reset Password Api:', data)
         $ionicPopup.alert({
            title: 'Thank You',
            content: 'An email has been sent to the email provided with instructions to reset your password.'

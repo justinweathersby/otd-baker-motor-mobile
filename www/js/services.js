@@ -30,16 +30,7 @@ app.service('authService', function($http, currentUserService, DEALERSHIP_API){
         currentUserService.device_token = data.user.device_token
         currentUserService.device_type = data.user.device_type
 
-        // console.log('Return login data:', data)
-        console.log('CurrentUserService:', JSON.stringify(currentUserService, null, 4));
-        // console.log('UserService token: ', data.user.auth_token)
-
-        // localStorage.setItem('user', user.email);
-        // localStorage.setItem('token', data.user.auth_token);
-
-        //--Set header for all subsequent requests
         $http.defaults.headers.common['Authorization'] = data.user.auth_token;
-
       }
     )
     .error( function(error)
@@ -47,10 +38,4 @@ app.service('authService', function($http, currentUserService, DEALERSHIP_API){
       console.log(error);
     });
   }; //--End of login function
-
-  this.logout = function(user){
-    // localStorage.clear();
-    // $state.go('login');
-    // return  $http({method: 'POST', url: DEALERSHIP_API.url + '/logout', headers: {'Authorization' : user.token}});
-  };// --End of logout function
 });

@@ -39,9 +39,6 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
     }).then(function(t) {
       currentUserService.device_token = t.token;
       currentUserService.device_type = t.type;
-      console.log('Push Token Saved:', t.token);
-      console.log('Token type: ', t.type);
-      console.log('Inside Run..CurrentUser: ', JSON.stringify(currentUserService, null, 4));
     });
 
     TestFairy.begin("993218db594324f249e28bfa5a72f74f0d21732d");

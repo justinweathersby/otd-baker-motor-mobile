@@ -8,8 +8,6 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
         })
         .success( function( data )
         {
-          console.log('Return Data From Get Dealerships from Api:', JSON.stringify(data, null, 4));
-
           $scope.dealerships = data;
           $ionicLoading.hide();
         }
@@ -22,7 +20,6 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
   );
 
   $scope.dealershipSelected = function(dealership_id){
-    console.log("Inside dealershipSelected dealerid: ", dealership_id);
     if (dealership_id != null){
       currentUserService.dealership_id = dealership_id;
       $state.go('signup');
@@ -35,8 +32,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
       $ionicLoading.show({
         template: '<p>Loading...</p><ion-spinner></ion-spinner>'
       });
-      console.log("Start Post ");
-    	console.log(user);
+
     	$http.post(DEALERSHIP_API.url + "/users", {user: {email: user.email,
                                                          password: user.password,
                                                          name: user.name,
@@ -45,13 +41,10 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
                                                          dealership_id: currentUserService.dealership_id}})
     	.success( function (data) {
         $ionicLoading.hide();
-        console.log("Returned Sign Up Success Data> ");
-        console.log(JSON.stringify(data, null, 4));
         currentUserService.token = data.user.auth_token;
         currentUserService.id = data.user.id;
         currentUserService.name = data.user.name;
         currentUserService.email = data.user.email;
-        // currentUserService.dealership_id = data.user.dealership_id
 
         localStorage.setItem('user', currentUserService.email);
         localStorage.setItem('dealership_id', currentUserService.dealership_id);
@@ -63,9 +56,6 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
     	})
       .error( function(error)
       {
-        // window.plugins.toast.showShortCenter('username already taken');
-        console.log("Returned Sign Up Error Data> ");
-        console.log(JSON.stringify(error.errors.password, null, 4));
         $ionicLoading.hide();
         var errorResponse = "";
         if (angular.isDefined(error.errors.password)){
@@ -81,7 +71,6 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
       });
     }
     else{
-      console.log($scope.signupForm.$error);
       var errorResponse = "";
       if(user.password != user.password_confirmation){
         errorResponse = "Passwords do not match";
