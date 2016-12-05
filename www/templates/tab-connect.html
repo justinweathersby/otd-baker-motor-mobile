@@ -7,31 +7,41 @@
 
   <ion-content style="" has-footer="true">
     <div class="list list-inset">
-    <a class="item item-icon-left" ng-click="contactSales()" ng-show="dealership.sales_email">
-      <i class="icon ion-email"></i>
-      Contact Sales
-    </a>
-
-    <a class="item item-icon-left" ng-click="contactService()" ng-show="dealership.service_email">
-      <i class="icon ion-wrench"></i>
-      Contact Service
-    </a>
-    <a class="item item-icon-left" ng-click="goToMaps()" ng-show="dealership.full_location_string" target="_system">
-      <i class="icon ion-map"></i>
-      Get Directions
-    </a>
+      <a class="item item-icon-left" ng-click="callDealership()" ng-show="dealership.phone">
+        <i class="icon ion-iphone"></i>
+        Call Dealership
+      </a>
+      <a class="item item-icon-left" ng-click="goToMaps()" ng-show="dealership.full_location_string" target="_system">
+        <i class="icon ion-map"></i>
+        Get Directions
+      </a>
+      <a class="item item-icon-left" ng-click="contactSales()" ng-show="dealership.sales_email">
+        <i class="icon ion-email"></i>
+        Contact Sales
+      </a>
+      <a class="item item-icon-left" ng-click="contactService()" ng-show="dealership.service_email">
+        <i class="icon ion-wrench"></i>
+        Contact Service
+      </a>
 
 <!-- For android need to implement this  -->
 <!-- <a href="geo:?q=LOCATION" target="_system">Map</a> -->
 
-    <a class="item item-icon-left" ng-click="callDealership()" ng-show="dealership.phone">
-      <i class="icon ion-iphone"></i>
-      Call Dealership
-    </a>
+    <div class="list list-inset">
+      <a class="item item-icon-left" ng-click="openLinkInBrowser(dealership.facebook_url)" ng-show="dealership.facebook_url">
+        <i class="icon ion-social-facebook"></i>
+        Facebook Page
+      </a>
+
+      <a class="item item-icon-left" ng-click="openLinkInBrowser(dealership.twitter_url)" ng-show="dealership.twitter_url">
+        <i class="icon ion-social-twitter"></i>
+        Twitter Page
+      </a>
+    </div>
 
   </div>
   </ion-content>
-  
+
   <!-- Footer Content -->
   <div ng-include src="'templates/partials/footer.html'"></div>
 </ion-view>
