@@ -55,7 +55,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('tab.connect', {
     url: '/connect',
     views: {
-      'tab-connect': {
+      'tab-dash': {
         templateUrl: 'templates/tab-connect.html',
         controller: 'DashCtrl'
       }
@@ -66,7 +66,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     cache: false,
     url: '/service',
     views: {
-      'tab-service':{
+      'tab-dash':{
         templateUrl: 'templates/tab-service.html',
         controller: 'DashCtrl'
       }
@@ -110,7 +110,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     cache: false,
     url: '/used_cars',
     views: {
-      'tab-dash':{
+      'tab-inventory':{
         templateUrl: 'templates/tab-used-cars.html',
         controller: 'DashCtrl'
       }
@@ -121,7 +121,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     cache: false,
     url: '/new_cars',
     views: {
-      'tab-dash':{
+      'tab-inventory':{
         templateUrl: 'templates/tab-new-cars.html',
         controller: 'DashCtrl'
       }
@@ -143,7 +143,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     cache: false,
     url: '/financing',
     views: {
-      'tab-dash':{
+      'tab-financing':{
         templateUrl: 'templates/tab-financing.html',
         controller: 'DashCtrl'
       }
