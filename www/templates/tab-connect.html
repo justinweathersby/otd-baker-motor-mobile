@@ -7,16 +7,16 @@
 
   <ion-content style="" has-footer="true">
     <div class="list list-inset">
-    <a class="item item-icon-left" ng-click="contactSales()">
+    <a class="item item-icon-left" ng-click="contactSales()" ng-show="dealership.sales_email">
       <i class="icon ion-email"></i>
       Contact Sales
     </a>
 
-    <a class="item item-icon-left" ng-click="contactService()">
+    <a class="item item-icon-left" ng-click="contactService()" ng-show="dealership.service_email">
       <i class="icon ion-wrench"></i>
       Contact Service
     </a>
-    <a class="item item-icon-left" ng-click="goToMaps()" target="_system">
+    <a class="item item-icon-left" ng-click="goToMaps()" ng-show="dealership.full_location_string" target="_system">
       <i class="icon ion-map"></i>
       Get Directions
     </a>
@@ -24,7 +24,7 @@
 <!-- For android need to implement this  -->
 <!-- <a href="geo:?q=LOCATION" target="_system">Map</a> -->
 
-    <a class="item item-icon-left" ng-click="callDealership()">
+    <a class="item item-icon-left" ng-click="callDealership()" ng-show="dealership.phone">
       <i class="icon ion-iphone"></i>
       Call Dealership
     </a>

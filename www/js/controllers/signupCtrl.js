@@ -1,4 +1,7 @@
-app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ionicPopup, authService, $ionicPopup, $ionicLoading, currentUserService, DEALERSHIP_API)
+app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
+                                      $ionicPopup, $ionicPopup, $ionicLoading, $ionicHistory,
+                                      authService, currentUserService,
+                                      DEALERSHIP_API)
 {
   $ionicLoading.show({
     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
@@ -25,7 +28,15 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
     console.log("Inside dealershipSelected dealerid: ", dealership_id);
     if (dealership_id != null){
       currentUserService.dealership_id = dealership_id;
-      $state.go('signup');
+
+      //--This is for determining if this is a new user or old user changing thier viewing dealership
+      if(currentUserService.token !== null) // you had to have loged in if you have a token
+      {
+        $state.go('tab.dash');
+      }
+      else{
+        $state.go('signup');
+      }
     }
   }
 
@@ -100,5 +111,9 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams, $ioni
   $scope.goToLogin = function() {
     $state.go('login');
   };
+
+  $scope.goBack = function(){
+    $ionicHistory.goBack();
+  }
 
 });

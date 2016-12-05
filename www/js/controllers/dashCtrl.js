@@ -1,4 +1,8 @@
-app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, $ionicHistory, DEALERSHIP_API) {
+app.controller('DashCtrl', function($scope, $sce, $http, $state,
+                                    $ionicPlatform, $ionicLoading, $ionicPopup, $ionicActionSheet, $ionicHistory,
+                                    authService, currentUserService,
+                                    DEALERSHIP_API) {
+
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
     var alertPopup = $ionicPopup.alert({
@@ -16,7 +20,7 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
   $scope.inAppBrowswerOpen = 0;
   $scope.urlSourceErrorOpen = 0;
 
-
+ //--TODO: Could prob move this to an init method
   $http({ method: 'GET',
           url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id
         })
@@ -37,6 +41,38 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
         $ionicLoading.hide();
       }
   );
+
+  //--Open actionsheet overlay popup
+ $scope.openHomePopup = function() {
+
+   // Show the action sheet
+   var hideSheet = $ionicActionSheet.show({
+     buttons: [
+       { text: 'Home' },
+       { text: 'View All Dealerships' }
+     ],
+    //  destructiveText: 'Delete',
+    //  titleText: 'Modify your album',
+     cancelText: 'Cancel',
+     cancel: function() {
+          // add cancel code..
+        },
+     buttonClicked: function(index) {
+       hideSheet();
+       switch(index){
+         case 0:
+         $state.go('tab.dash');
+         break;
+         case 1:
+         $state.go('dealership-list');
+         break;
+       }
+
+     }
+   });
+ };
+ //--End actionsheet popup
+
 
   $scope.contactSales = function(){
     console.log("contact slaes button is being pushed");
@@ -126,6 +162,14 @@ app.controller('DashCtrl', function($scope, $sce, $ionicPlatform, $http, $ionicL
 
   $scope.logout = function() {
     console.log("Inside logout function");
+    currentUserService.id = null;
+    currentUserService.token = null;
+    currentUserService.name = null;
+    currentUserService.email = null;
+    currentUserService.dealership_id = null;
+    currentUserService.device_token = null;
+    currentUserService.device_type = null;
+
     localStorage.clear();
     $ionicHistory.clearCache();
     $ionicHistory.clearHistory();
