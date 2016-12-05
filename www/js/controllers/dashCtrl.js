@@ -183,7 +183,7 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
   };
 
 
-  $scope.openLinkInBrowser = function(url){
+  $scope.openLinkInBrowser = function(url, redirect){
     if ($scope.inAppBrowswerOpen == 0){
       $scope.inAppBrowswerOpen = 1;
       $ionicPlatform.ready(function() {
@@ -191,9 +191,9 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
 
         // inAppBrowser.addEventListener('loadstop', $scope.replaceHeaderImage);
         inAppBrowser.addEventListener('exit', function(event){
-          $state.go('tab.dash');
+          $state.go(redirect);
           console.log("in app broswer close event");
-          // $scope.inAppBrowswerOpen = 0;
+          $scope.inAppBrowswerOpen = 0;
 
         });
       });
@@ -226,7 +226,7 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   };
-  
+
   $scope.goToFinancing = function(){
     $scope.inAppBrowswerOpen = 0;
     $state.go('tab.financing');

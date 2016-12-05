@@ -7,7 +7,7 @@
     </div>
     <div ng-if="::dealership.service_url != ''" style="height:95%;">
       <div ng-if="::dealership.iframeFriendly == 0">
-        {{openLinkInBrowser(dealership.service_url)}}
+        {{openLinkInBrowser(dealership.service_url, 'tab.dash')}}
       </div>
       <div class="holds-the-iframe" ng-if="::dealership.iframeFriendly == 1" style="
         height:100%;
