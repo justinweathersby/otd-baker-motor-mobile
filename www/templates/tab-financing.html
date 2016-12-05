@@ -4,7 +4,7 @@
         <div ng-if="::dealership.financing_url == ''">
           {{noUrlAlertAndRedirect('Financing')}}
         </div>
-        <div ng-if="::dealership.financing_url != ''" style="height:100%;">
+        <div ng-if="::dealership.financing_url != ''" style="height:95%">
           <div ng-if="::dealership.iframeFriendly == 0">
             {{openLinkInBrowser(dealership.financing_url)}}
           </div>

@@ -3,7 +3,7 @@
     <div ng-if="::dealership.parts_url == ''">
       {{noUrlAlertAndRedirect('Parts')}}
     </div>
-    <div ng-if="::dealership.parts_url != ''" style="height:100%;">
+    <div ng-if="::dealership.parts_url != ''" style="height:95%;">
       <div ng-if="::dealership.iframeFriendly == 0">
         {{openLinkInBrowser(dealership.parts_url)}}
       </div>

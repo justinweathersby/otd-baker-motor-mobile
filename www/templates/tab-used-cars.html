@@ -3,7 +3,7 @@
     <div ng-if="::dealership.used_cars_url == ''">
       {{noUrlAlertAndRedirect('Used Cars')}}
     </div>
-    <div ng-if="::dealership.used_cars_url != ''" style="height:100%;">
+    <div ng-if="::dealership.used_cars_url != ''" style="height:95%;">
       <div ng-if="::dealership.iframeFriendly == 0">
         {{openLinkInBrowser(dealership.used_cars_url)}}
       </div>

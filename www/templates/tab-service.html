@@ -5,7 +5,7 @@
     <div ng-if="::dealership.service_url == ''">
       {{noUrlAlertAndRedirect('Service')}}
     </div>
-    <div ng-if="::dealership.service_url != ''" style="height:100%;">
+    <div ng-if="::dealership.service_url != ''" style="height:95%;">
       <div ng-if="::dealership.iframeFriendly == 0">
         {{openLinkInBrowser(dealership.service_url)}}
       </div>
