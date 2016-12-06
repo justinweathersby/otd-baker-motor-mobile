@@ -1,10 +1,4 @@
 <ion-view>
-  <!-- <ion-nav-bar class="" ng-style="{ 'background-color': dealership.primary_color }">
-    <ion-nav-title>
-        <img src="{{dealership.logo_url}}" style="margin-left:auto; margin-right:auto; display:block;" height="40px" alt="">
-     </ion-nav-title>
-  </ion-nav-bar> -->
-
   <ion-content style="" has-footer="true">
     <div class="list list-inset">
       <a class="item item-icon-left" ng-click="callDealership()" ng-show="dealership.phone">
@@ -24,25 +18,17 @@
         Contact Service
       </a>
     </div>
-
-<!-- For android need to implement this  -->
-<!-- <a href="geo:?q=LOCATION" target="_system">Map</a> -->
-
     <div class="list list-inset">
       <a class="item item-icon-left" ng-click="openLinkInBrowser(dealership.facebook_url, 'tab.connect')" ng-show="dealership.facebook_url">
         <i class="icon ion-social-facebook"></i>
         Facebook Page
       </a>
-
       <a class="item item-icon-left" ng-click="openLinkInBrowser(dealership.twitter_url, 'tab.connect')" ng-show="dealership.twitter_url">
         <i class="icon ion-social-twitter"></i>
         Twitter Page
       </a>
     </div>
-
   </div>
   </ion-content>
-
-  <!-- Footer Content -->
   <div ng-include src="'templates/partials/footer.html'"></div>
 </ion-view>
