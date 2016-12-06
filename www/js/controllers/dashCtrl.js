@@ -15,12 +15,10 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
   });
 
-
   $scope.inAppBrowser = null;
   $scope.inAppBrowswerOpen = 0;
   $scope.urlSourceErrorOpen = 0;
 
- //--TODO: Could prob move this to an init method
   $http({ method: 'GET',
           url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id
         })
