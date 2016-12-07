@@ -1,6 +1,6 @@
 app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
                                       $ionicPopup, $ionicPopup, $ionicLoading, $ionicHistory,
-                                      authService, currentUserService,
+                                      authService, currentUserService, currentDealerService, dealerService,
                                       DEALERSHIP_API)
 {
   $ionicLoading.show({
@@ -27,12 +27,31 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
   $scope.dealershipSelected = function(dealership_id){
     console.log("Inside dealershipSelected dealerid: ", dealership_id);
     if (dealership_id != null){
+      dealerService.resetCurrent();
       currentUserService.dealership_id = dealership_id;
 
       //--This is for determining if this is a new user or old user changing thier viewing dealership
       if(currentUserService.token !== null) // you had to have loged in if you have a token
       {
-        $state.go('tab.dash');
+        $ionicHistory.clearCache();
+        $ionicLoading.show({
+          template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+        });
+
+        //--Try to preload the dealership after click
+        dealerService.getDealership().success(function(){
+          $state.go('tab.dash');
+          $ionicLoading.hide();
+
+        }).error(function(){
+          $ionicLoading.hide();
+          var alertPopup = $ionicPopup.alert({
+            title: 'Could Not Get Dealership Profile',
+            template: "Please Restart Your App. If This problem continues please contact us."
+          });
+          $state.go('login');
+        });
+
       }
       else{
         $state.go('signup');
