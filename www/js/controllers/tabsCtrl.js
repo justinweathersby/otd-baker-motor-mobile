@@ -46,9 +46,7 @@ $scope.openInventoryModal = function(){
       { text: 'Find Parts'}
     ],
     cancelText: 'Cancel',
-    cancel: function() {
-         // add cancel code..
-       },
+    cancel: function() {},
     buttonClicked: function(index) {
       hideSheet();
       switch(index){
@@ -74,9 +72,7 @@ $scope.openSpecialsModal = function(){
       { text: 'Service Specials' }
     ],
     cancelText: 'Cancel',
-    cancel: function() {
-         // add cancel code..
-       },
+    cancel: function() {},
     buttonClicked: function(index) {
       hideSheet();
       switch(index){
@@ -98,9 +94,7 @@ $scope.openMoreModal = function(){
       { text: 'Logout' }
     ],
     cancelText: 'Cancel',
-    cancel: function() {
-         // add cancel code..
-       },
+    cancel: function() {},
     buttonClicked: function(index) {
       hideSheet();
       switch(index){
@@ -108,9 +102,13 @@ $scope.openMoreModal = function(){
         logout();
         break;
       }
-
     }
   });
+};
+
+$scope.goToFinancing = function(){
+   $scope.inAppBrowswerOpen = 0;
+   $state.go('tab.financing');
 };
 
 //--End actionsheet popup

@@ -11,8 +11,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
         })
         .success( function( data )
         {
-          console.log('Return Data From Get Dealerships from Api:', JSON.stringify(data, null, 4));
-
+          // console.log('Return Data From Get Dealerships from Api:', JSON.stringify(data, null, 4));
           $scope.dealerships = data;
           $ionicLoading.hide();
         }

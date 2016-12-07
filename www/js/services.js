@@ -18,6 +18,7 @@ app.service('currentDealerService', function(){
   this.new_cars_url =
   this.used_cars_url =
   this.service_url =
+  this.specials_url =
   this.service_specials_url =
   this.parts_url =
   this.financing_url =
@@ -38,6 +39,7 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
     currentDealerService.primary_color =
     currentDealerService.new_cars_url =
     currentDealerService.used_cars_url =
+    currentDealerService.specials_url =
     currentDealerService.service_url =
     currentDealerService.service_specials_url =
     currentDealerService.parts_url =
@@ -65,6 +67,7 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
         currentDealerService.used_cars_url = data.used_cars_url;
         currentDealerService.service_url = data.service_url;
         currentDealerService.service_specials_url = data.service_specials_url;
+        currentDealerService.specials_url = data.specials_url;
         currentDealerService.parts_url = data.parts_url;
         currentDealerService.financing_url = data.financing_url;
         currentDealerService.service_email = data.service_email;

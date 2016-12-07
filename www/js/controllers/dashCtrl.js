@@ -15,7 +15,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
   //--Initialize Function for Controller
   function dealershipInit() {
     console.log("Inside dealership initialize----");
-    // currentUserService.dealership_id = dealership_id;
     $scope.dealership = null;
 
     $ionicLoading.show({
@@ -83,7 +82,7 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
         inAppBrowser.addEventListener('exit', function(event){
           $state.go(redirect);
           console.log("in app broswer close event");
-          $scope.inAppBrowswerOpen = 0;
+          // $scope.inAppBrowswerOpen = 0;
         });
       });
     }
@@ -114,6 +113,4 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   };
-
-
 });
