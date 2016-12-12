@@ -1,5 +1,5 @@
 app.controller('TabsCtrl', function($scope, $state,
-                                    $ionicActionSheet, $ionicHistory,
+                                    $ionicActionSheet, $ionicHistory, $ionicPlatform,
                                     authService, currentDealerService, dealerService){
 
 $scope.$on('cloud:push:notification', function(event, data) {
@@ -9,7 +9,31 @@ $scope.$on('cloud:push:notification', function(event, data) {
     template: msg.text
   });
 });
+
 $scope.dealership = currentDealerService;
+
+function openExternalURL(url, template, alertString){
+  if (url){
+    if(currentDealerService.iframeFriendly){ $state.go(template);}
+    else{ openLinkInBrowser(url);}
+  }else{noUrlAlertAndRedirect(alertString);}
+};
+
+function openLinkInBrowser(url, redirect){
+  console.log("inappbrowser is called");
+  $ionicPlatform.ready(function() {
+      var inAppBrowser = window.open(url, '_blank', 'location=no');
+  });
+};
+
+function noUrlAlertAndRedirect(fromString){
+    console.log("Inside no url alert and redirect");
+    var alertPopup = $ionicPopup.alert({
+      title: "Sorry",
+      template: "There is no link to " + fromString
+    });
+    $state.go('tab.dash');
+};
 
 //--Open actionsheet overlay modal
 $scope.openHomeModal = function() {
@@ -51,13 +75,13 @@ $scope.openInventoryModal = function(){
       hideSheet();
       switch(index){
         case 0:
-        $state.go('tab.new-cars');
+        openExternalURL(currentDealerService.new_cars_url, "tab.new-cars", "New Cars");
         break;
         case 1:
-        $state.go('tab.used-cars');
+        openExternalURL(currentDealerService.used_cars_url, "tab.used-cars", "Used Cars");
         break;
         case 2:
-        $state.go('tab.parts');
+        openExternalURL(currentDealerService.parts_url, "tab.parts", "Parts");
         break;
       }
 
@@ -77,10 +101,10 @@ $scope.openSpecialsModal = function(){
       hideSheet();
       switch(index){
         case 0:
-        $state.go('tab.specials');
+        openExternalURL(currentDealerService.new_cars_url, "tab.specials", "Specials");
         break;
         case 1:
-        $state.go('tab.service-specials');
+        openExternalURL(currentDealerService.new_cars_url, "tab.service-specials", "Service Specials");
         break;
       }
 
@@ -107,8 +131,7 @@ $scope.openMoreModal = function(){
 };
 
 $scope.goToFinancing = function(){
-   $scope.inAppBrowswerOpen = 0;
-   $state.go('tab.financing');
+   openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
 };
 
 //--End actionsheet popup

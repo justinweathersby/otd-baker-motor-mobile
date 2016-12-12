@@ -1,12 +1,10 @@
-app.controller('DashCtrl', function($scope, $sce, $http, $state,
+app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
                                     $ionicPlatform, $ionicLoading, $ionicPopup, $ionicActionSheet, $ionicHistory,
                                     currentUserService, currentDealerService, dealerService,
                                     DEALERSHIP_API) {
 
 
-  $scope.inAppBrowser = null;
-  $scope.inAppBrowswerOpen = 0;
-  $scope.urlSourceErrorOpen = 0;
+
 
   if(currentDealerService.id == null){
     dealershipInit();
@@ -70,35 +68,26 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state,
          },
          this);
   };
-
-
-  $scope.openLinkInBrowser = function(url, redirect){
-    if ($scope.inAppBrowswerOpen == 0){
-      $scope.inAppBrowswerOpen = 1;
-      $ionicPlatform.ready(function() {
-        var inAppBrowser = window.open(url, '_blank', 'location=yes');
-
-        // inAppBrowser.addEventListener('loadstop', $scope.replaceHeaderImage);
-        inAppBrowser.addEventListener('exit', function(event){
-          $state.go(redirect);
-          console.log("in app broswer close event");
-          // $scope.inAppBrowswerOpen = 0;
+  $scope.goToService = function(){
+    if(currentDealerService.service_url){
+      if(currentDealerService.iframeFriendly){ $state.go('tab.service');}
+      else{
+        $ionicPlatform.ready(function(){
+          window.open(currentDealerService.service_url, '_blank', 'location=no');
         });
-      });
+      }
     }
-  };
-
-  $scope.noUrlAlertAndRedirect = function(fromString){
-    if($scope.urlSourceErrorOpen == 0){
-      $scope.urlSourceErrorOpen = 1;
-      console.log("Inside no url alert and redirect");
+    else{
       var alertPopup = $ionicPopup.alert({
         title: "Sorry",
-        template: "There is no link to " + fromString
+        template: "There is no link to Service"
       });
       $state.go('tab.dash');
     }
+  };
 
+  $scope.openSocialMediaBrowser = function(url){
+    window.open(url, '_blank', 'location=no');
   };
 
   $scope.goToMaps = function(){
