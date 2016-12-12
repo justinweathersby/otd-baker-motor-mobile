@@ -78,7 +78,7 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     .error( function(error)
     {
       $ionicLoading.hide();
-      console.log(error);
+      console.log("error:", JSON.stringify(error, 4, null));
       $ionicPopup.alert({
          title: 'Woops..',
          content: 'The email you have entered does not exist in our records'

@@ -1,36 +1,26 @@
 app.config(function($stateProvider, $urlRouterProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
-
-
   .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl'
   })
-
   .state('dealership-list', {
     url: '/dealership-list',
     templateUrl: 'templates/dealership-list.html',
     controller: 'SignupCtrl'
   })
-
   .state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html',
     controller: 'SignupCtrl'
   })
-
   .state('forgot-password', {
     url: '/forgot-password',
     templateUrl: 'templates/forgot-password.html',
     controller: 'LoginCtrl'
   })
-
   //setup an abstract state for the tabs directive
   .state('tab', {
     url: '/tab',
@@ -38,8 +28,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/tabs.html',
     controller: 'TabsCtrl'
   })
-
-  // Each tab has its own nav history stack:
   .state('tab.dash', {
     url: '/dash',
     views: {
@@ -49,7 +37,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.connect', {
     url: '/connect',
     views: {
@@ -59,7 +46,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.service',{
     url: '/service',
     views: {
@@ -69,7 +55,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.specials',{
     url: '/specials',
     views: {
@@ -79,7 +64,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.service-specials',{
     url: '/service_specials',
     views: {
@@ -89,7 +73,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.more',{
     url: '/more',
     views: {
@@ -99,8 +82,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
-
   .state('tab.used-cars',{
     url: '/used_cars',
     views: {
@@ -110,7 +91,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.new-cars',{
     url: '/new_cars',
     views: {
@@ -120,7 +100,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.parts',{
     url: '/parts',
     views: {
@@ -130,7 +109,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
-
   .state('tab.financing',{
     url: '/financing',
     views: {
@@ -143,8 +121,4 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login'); //--default go to page
-
-  //--Cordova white list plugin
-  // $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
-
 });

@@ -1,36 +1,22 @@
-<!--
-Create tabs with an icon and label, using the tabs-positive style.
-Each tab's child <ion-nav-view> directive will have its own
-navigation history that also transitions its views in and out.
--->
 <ion-nav-bar class="bar-dark">
   <ion-nav-title>
       <img src="{{dealership.logo_url}}" style="margin-left:auto; margin-right:auto; display:block; padding-top: 8px;" height="40px" alt="">
    </ion-nav-title>
 </ion-nav-bar>
 <ion-tabs class="tabs-icon-top tabs-background-dark tabs-color-light">
-
-  <!-- Dashboard Tab -->
   <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" ng-click="openHomeModal()">
     <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
-
-  <!-- Inventory Tab -->
   <ion-tab title="Inventory" icon-off="ion-model-s" icon-on="ion-model-s" ng-click="openInventoryModal()">
     <ion-nav-view name="tab-inventory"></ion-nav-view>
   </ion-tab>
-
-  <!-- Financing Tab -->
   <ion-tab title="Financing" icon-off="ion-ios-calculator-outline" icon-on="ion-ios-calculator" ng-click="goToFinancing()">
     <ion-nav-view name="tab-financing"></ion-nav-view>
   </ion-tab>
-
   <ion-tab title="Specials" icon-off="ion-ios-pricetag-outline" icon-on="ion-ios-pricetag" ng-click="openSpecialsModal()">
     <ion-nav-view name="tab-specials"></ion-nav-view>
   </ion-tab>
-
   <ion-tab title="More" icon-off="ion-ios-more-outline" icon-on="ion-ios-more" ng-click="openMoreModal()">
     <ion-nav-view name="tab-more"></ion-nav-view>
   </ion-tab>
-
 </ion-tabs>
