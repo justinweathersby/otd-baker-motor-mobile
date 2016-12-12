@@ -59,7 +59,7 @@ $scope.openHomeModal = function() {
  });
 };
 
-$scope.openInventoryModal = function(){\
+$scope.openInventoryModal = function(){
   var hideSheet = $ionicActionSheet.show({
     buttons: [
       { text: 'New Inventory' },
