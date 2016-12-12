@@ -20,14 +20,12 @@ function openExternalURL(url, template, alertString){
 };
 
 function openLinkInBrowser(url, redirect){
-  console.log("inappbrowser is called");
   $ionicPlatform.ready(function() {
       var inAppBrowser = window.open(url, '_blank', 'location=no');
   });
 };
 
 function noUrlAlertAndRedirect(fromString){
-    console.log("Inside no url alert and redirect");
     var alertPopup = $ionicPopup.alert({
       title: "Sorry",
       template: "There is no link to " + fromString
@@ -61,8 +59,7 @@ $scope.openHomeModal = function() {
  });
 };
 
-$scope.openInventoryModal = function(){
-  // Show the action sheet
+$scope.openInventoryModal = function(){\
   var hideSheet = $ionicActionSheet.show({
     buttons: [
       { text: 'New Inventory' },
@@ -107,7 +104,6 @@ $scope.openSpecialsModal = function(){
         openExternalURL(currentDealerService.new_cars_url, "tab.service-specials", "Service Specials");
         break;
       }
-
     }
   });
 };
@@ -134,9 +130,7 @@ $scope.goToFinancing = function(){
    openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
 };
 
-//--End actionsheet popup
 function logout() {
-  console.log("-----Logout started");
   authService.resetCurrent();
   dealerService.resetCurrent();
   localStorage.clear();

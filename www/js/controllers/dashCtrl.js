@@ -12,7 +12,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
 
   //--Initialize Function for Controller
   function dealershipInit() {
-    console.log("Inside dealership initialize----");
     $scope.dealership = null;
 
     $ionicLoading.show({
@@ -23,7 +22,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
       $scope.dealership = currentDealerService;
       $scope.iframeFriendly = currentDealerService.iframeFriendly;
       $scope.dealership.full_location_string = currentDealerService.location;
-      console.log("currentDealer...", JSON.stringify($scope.dealership, null, 4));
       $ionicLoading.hide();
 
     }).error(function(){
@@ -38,13 +36,11 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
 
 
  $scope.contactSales = function(){
-    console.log("contact slaes button is being pushed");
     window.plugin.email.open({
          to:      $scope.dealership.sales_email,
          subject: $scope.dealership.name + ' Sales Inquiry',
          body:    currentUserService.name + ': '
          }, function () {
-             console.log('email view dismissed');
              $ionicPopup.alert({
                      title: 'Email Not Sent',
                      content: 'You have selected to exit out before sending the email.'
@@ -54,13 +50,11 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
   };
 
   $scope.contactService = function(){
-    console.log("contact slaes button is being pushed");
     window.plugin.email.open({
          to:      $scope.dealership.service_email,
          subject: $scope.dealership.name + ' Service Inquiry',
          body:    currentUserService.name + ': '
          }, function () {
-             console.log('email view dismissed');
              $ionicPopup.alert({
                      title: 'Email Not Sent',
                      content: 'You have selected to exit out before sending the email.'

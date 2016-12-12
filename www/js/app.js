@@ -21,7 +21,6 @@ app.config(function($ionicCloudProvider, $compileProvider){
   });
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|map|geo|skype):/);
-
 });
 
 app.run(function($ionicPlatform, $ionicPush, currentUserService) {
@@ -33,9 +32,7 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
       currentUserService.device_token = t.token;
       currentUserService.device_type = t.type;
     });
-
     // TestFairy.begin("993218db594324f249e28bfa5a72f74f0d21732d");
-
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
