@@ -114,12 +114,12 @@ app.service('authService', function($http, currentUserService, DEALERSHIP_API){
   }; //--End of login function
 
   this.resetCurrent = function(){
-    this.id =
-    this.token =
-    this.name =
-    this.email =
-    this.dealership_id =
-    this.device_token =
-    this.device_type = null;
+    currentUserService.id =
+    currentUserService.token =
+    currentUserService.name =
+    currentUserService.email =
+    currentUserService.dealership_id =
+    currentUserService.device_token =
+    currentUserService.device_type = null;
   };
 });

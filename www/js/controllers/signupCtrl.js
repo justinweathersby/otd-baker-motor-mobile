@@ -25,6 +25,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
 
   $scope.dealershipSelected = function(dealership_id){
     console.log("Inside dealershipSelected dealerid: ", dealership_id);
+    console.log("---token: ", currentUserService.token);
     if (dealership_id != null){
       dealerService.resetCurrent();
       currentUserService.dealership_id = dealership_id;

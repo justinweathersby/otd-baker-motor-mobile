@@ -136,6 +136,7 @@ $scope.goToFinancing = function(){
 
 //--End actionsheet popup
 function logout() {
+  console.log("-----Logout started");
   authService.resetCurrent();
   dealerService.resetCurrent();
   localStorage.clear();
