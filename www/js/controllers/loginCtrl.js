@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, DEALERSHIP_API) {
+app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, dealerService, DEALERSHIP_API) {
   var user = localStorage.getItem('user');
   if(user !== null)
   {
@@ -36,7 +36,21 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
         localStorage.setItem('token', currentUserService.token);
         localStorage.setItem('id', currentUserService.id);
 
-        $state.go('tab.dash', {}, {reload:true});
+        //--Try to preload the dealership after click
+        dealerService.getDealership().success(function(){
+          $state.go('tab.dash');
+          $ionicLoading.hide();
+
+        }).error(function(){
+          $ionicLoading.hide();
+          var alertPopup = $ionicPopup.alert({
+            title: 'Could Not Get Dealership Profile',
+            template: "Please Restart Your App. If This problem continues please contact us."
+          });
+          $state.go('login');
+        });
+
+
       }).error(function()
       {
         $ionicLoading.hide();

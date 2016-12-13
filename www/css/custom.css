@@ -1,9 +1,9 @@
-
 .holds-the-iframe {
   height:100%;
   padding-bottom:60px;
-  background-image: url(img/box.gif);
+  background-image: url(../img/box.gif);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+  overflow-y: scroll;
 }

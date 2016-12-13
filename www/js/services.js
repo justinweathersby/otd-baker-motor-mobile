@@ -88,8 +88,17 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
 
 
 //-- This service handles all authentication between app and Chatter API
-app.service('authService', function($http, currentUserService, DEALERSHIP_API){
+app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUserService, DEALERSHIP_API){
   this.login = function(user){
+
+    $ionicPlatform.ready(function() {
+      $ionicPush.register().then(function(t) {
+        return $ionicPush.saveToken(t);
+      }).then(function(t) {
+        currentUserService.device_token = t.token;
+        currentUserService.device_type = t.type;
+      });
+    });
 
     return  $http({method: 'POST',
                    url: DEALERSHIP_API.url + '/login',
@@ -118,8 +127,6 @@ app.service('authService', function($http, currentUserService, DEALERSHIP_API){
     currentUserService.token =
     currentUserService.name =
     currentUserService.email =
-    currentUserService.dealership_id =
-    currentUserService.device_token =
-    currentUserService.device_type = null;
+    currentUserService.dealership_id = null;
   };
 });
