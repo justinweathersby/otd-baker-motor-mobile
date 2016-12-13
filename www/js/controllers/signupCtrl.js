@@ -3,6 +3,14 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
                                       authService, currentUserService, currentDealerService, dealerService,
                                       DEALERSHIP_API)
 {
+  $scope.$on('cloud:push:notification', function(event, data) {
+    var msg = data.message;
+    var alertPopup = $ionicPopup.alert({
+      title: msg.title,
+      template: msg.text
+    });
+  });
+  
   $ionicLoading.show({
     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
   });

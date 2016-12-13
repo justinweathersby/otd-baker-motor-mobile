@@ -57,7 +57,6 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
     return $http({ method: 'GET',
         url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id
     }).success( function( data ){
-        console.log('Return Data From Get Dealerships/ from Api:', JSON.stringify(data, null, 4));
         currentDealerService.id = data.id;
         currentDealerService.name = data.name;
         currentDealerService.phone = data.phone;
