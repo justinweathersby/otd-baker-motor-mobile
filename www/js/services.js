@@ -129,3 +129,12 @@ app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUs
     currentUserService.dealership_id = null;
   };
 });
+
+
+app.service('currentConversation', function(){
+  this.id =
+  this.sender_id =
+  this.sender_name =
+  this.sender_image =
+  this.last_message = null;
+});

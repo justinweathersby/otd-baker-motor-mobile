@@ -126,6 +126,10 @@ $scope.openMoreModal = function(){
   });
 };
 
+$scope.goToChat = function(){
+  $state.go('tab.conversations');
+};
+
 $scope.goToFinancing = function(){
    openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
 };

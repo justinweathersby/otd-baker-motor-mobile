@@ -11,6 +11,14 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     $state.go('tab.dash');
   }
 
+  localforage.getItem('user_token').then(function(value) {
+    var token = value;
+    if(token){
+      console.log("Token: " + token);
+      $state.go('tab.dash');
+    }
+  }).catch(function(err) { console.log("GET ITEM ERROR::Login::", err);});
+
   $scope.$on('cloud:push:notification', function(event, data) {
     var msg = data.message;
     var alertPopup = $ionicPopup.alert({
@@ -29,6 +37,27 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     if ($scope.loginForm.$valid){
       authService.login(user).success(function(){
         $ionicLoading.hide();
+
+        localforage.setItem('user_token', currentUserService.token).then(function (value) {
+            // Do other things once the value has been saved.
+            console.log("SUCCESSFULLY STORED TOKEN AFTER AUTHSERVICE");
+            console.log(value);
+
+            localforage.setItem('user_id', currentUserService.id).then(function (value) {
+                // Do other things once the value has been saved.
+                console.log("SUCCESSFULLY STORED ID AFTER AUTHSERVICE");
+                console.log(value);
+                // $state.go('tab.dash');
+                // $ionicLoading.hide();
+            }).catch(function(err) {
+                // This code runs if there were any errors
+                console.log("SET ITEM ERROR::Services::authService::token::",err);
+            });
+
+        }).catch(function(err) {
+            // This code runs if there were any errors
+            console.log("SET ITEM ERROR::Services::authService::token::",err);
+        });
 
         localStorage.setItem('user', user.email);
         localStorage.setItem('dealership_id', currentUserService.dealership_id);

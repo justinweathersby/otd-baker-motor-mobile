@@ -46,6 +46,26 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
+  .state('tab.conversations', {
+    url: '/conversations',
+    cache: false,
+    views: {
+      'tab-financing': {
+        templateUrl: 'templates/tab-conversations.html',
+        controller: 'ConversationsCtrl'
+      }
+    }
+  })
+  .state('tab.messages', {
+    url: '/messages',
+    cache: false,
+    views: {
+      'tab-financing': {
+        templateUrl: 'templates/tab-message.html',
+        controller: 'MessageCtrl'
+      }
+    }
+  })
   .state('tab.service',{
     url: '/service',
     views: {
