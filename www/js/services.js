@@ -7,6 +7,8 @@ app.service('currentUserService', function(){
   this.dealership_id =
   this.device_token =
   this.device_type = null;
+
+  this.roles = [];
 });
 
 app.service('currentDealerService', function(){
@@ -158,7 +160,8 @@ app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUs
         currentUserService.id = data.id;
         currentUserService.name = data.name;
         currentUserService.email = data.email;
-        currentUserService.dealership_id = data.dealership_id
+        currentUserService.dealership_id = data.dealership_id;
+        currentUserService.roles = data.roles;
         // currentUserService.device_token = data.device_token
         // currentUserService.device_type = data.device_type
 

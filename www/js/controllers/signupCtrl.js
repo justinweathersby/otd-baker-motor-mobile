@@ -87,6 +87,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
         currentUserService.id = data.user.id;
         currentUserService.name = data.user.name;
         currentUserService.email = data.user.email;
+        currentUserService.roles = data.roles;
 
         // localStorage.setItem('user', currentUserService.email);
         // localStorage.setItem('dealership_id', currentUserService.dealership_id);
