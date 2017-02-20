@@ -3,14 +3,14 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
                                       authService, currentUserService, currentDealerService, dealerService,
                                       DEALERSHIP_API)
 {
-  $scope.$on('cloud:push:notification', function(event, data) {
-    var msg = data.message;
-    var alertPopup = $ionicPopup.alert({
-      title: msg.title,
-      template: msg.text
-    });
-  });
-  
+  // $scope.$on('cloud:push:notification', function(event, data) {
+  //   var msg = data.message;
+  //   var alertPopup = $ionicPopup.alert({
+  //     title: msg.title,
+  //     template: msg.text
+  //   });
+  // });
+
   $ionicLoading.show({
     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
   });
@@ -40,6 +40,12 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
         $ionicHistory.clearCache();
         $ionicLoading.show({
           template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+        });
+
+        localforage.setItem('currentUser', currentUserService).then(function (value){
+          console.log("Value set in currentDealer:", JSON.stringify(value));
+        }).catch(function(err){
+          console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::",err)
         });
 
         //--Try to preload the dealership after click
@@ -82,13 +88,18 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
         currentUserService.name = data.user.name;
         currentUserService.email = data.user.email;
 
-        localStorage.setItem('user', currentUserService.email);
-        localStorage.setItem('dealership_id', currentUserService.dealership_id);
-        localStorage.setItem('name', currentUserService.name);
-        localStorage.setItem('token', currentUserService.token);
-        localStorage.setItem('id', currentUserService.id);
+        // localStorage.setItem('user', currentUserService.email);
+        // localStorage.setItem('dealership_id', currentUserService.dealership_id);
+        // localStorage.setItem('name', currentUserService.name);
+        // localStorage.setItem('token', currentUserService.token);
+        // localStorage.setItem('id', currentUserService.id);
+        localforage.setItem('currentUser', currentUserService).then(function (value){
+          console.log("Value set in currentDealer:", JSON.stringify(value));
+          $state.go('tab.dash');
+        }).catch(function(err){
+          console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::",err)
+        });
 
-        $state.go('tab.dash');
     	})
       .error( function(error)
       {

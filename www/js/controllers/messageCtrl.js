@@ -44,6 +44,7 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
 
   window.addEventListener('native.keyboardshow', keyboardShowHandler);
   window.addEventListener('native.keyboardhide', keyboardHideHandler);
+  
   function keyboardShowHandler(e){
       console.log('Keyboard height is: ' + e.keyboardHeight);
       $ionicScrollDelegate.scrollBottom(true);
@@ -69,9 +70,11 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
         template: '<p>Loading...</p><ion-spinner></ion-spinner>'
     });
     // console.log("BEFORE GET MESSAGES CHECK TOKEN: " + currentUser.token + "::::ID::::" + currentUser.id);
-    localforage.getItem('user_token').then(function(value) {
-      var token = value;
-      console.log("AFTER FORAGE GET ITEM USER TOKEN IN GETMESSAGES: ", token);
+    localforage.getItem('currentUser').then(function(value){
+      console.log("Current User: ", JSON.stringify(value));
+      currentUserService = value;
+      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
+      console.log("AFTER FORAGE GET ITEM USER TOKEN IN GETMESSAGES: ", currentUserService.token);
 
         localforage.getItem('conversation').then(function(value) {
           $scope.current_conv = value;
@@ -80,7 +83,7 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
                   params: {
                     "conversation_id": $scope.current_conv.id
                   },
-                  headers: {'Authorization' : token}
+                  headers: {'Authorization' : currentUserService.token}
                 })
                 .success( function( data )
                 {
@@ -123,8 +126,10 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
     $ionicLoading.show({
         template: '<p>Sending Message...</p><ion-spinner></ion-spinner>'
     });
-    localforage.getItem('user_token').then(function(value) {
-      var token = value;
+    localforage.getItem('currentUser').then(function(value){
+      console.log("Current User: ", JSON.stringify(value));
+      currentUserService = value;
+      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
       localforage.getItem('conversation').then(function(value) {
         $scope.current_conv = value;
         $http({ method: 'POST',
@@ -135,7 +140,7 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
                     },
                     "recipient_id": $scope.current_conv.sender_id
                   },
-                  headers: {'Authorization' : token}
+                  headers: {'Authorization' : currentUserService.token}
         }).success( function( data ){
                 $ionicLoading.hide();
                 // var message = {
@@ -146,8 +151,6 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
                 // };
                 // $scope.messages.push(message);
                 delete $scope.replyMessage.body;
-
-
                 $scope.getMessages();
         }).error( function(error){
                 $ionicLoading.hide();

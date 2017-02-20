@@ -1,5 +1,5 @@
 app.controller('TabsCtrl', function($scope, $state,
-                                    $ionicActionSheet, $ionicHistory, $ionicPlatform,
+                                    $ionicActionSheet, $ionicHistory, $ionicPlatform, $ionicLoading, $ionicPopup,
                                     authService, currentDealerService, dealerService){
 
 $scope.$on('cloud:push:notification', function(event, data) {
@@ -127,7 +127,27 @@ $scope.openMoreModal = function(){
 };
 
 $scope.goToChat = function(){
-  $state.go('tab.conversations');
+  $ionicLoading.show({
+      template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+  });
+  dealerService.getSalesReps().success(function(){
+    dealerService.getServiceReps().success(function(){
+      $ionicLoading.hide();
+      $state.go('tab.conversations');
+    }).error(function(){
+      $ionicLoading.hide();
+      var alertPopup = $ionicPopup.alert({
+        title: 'Could Not Find Dealership Service Representatives',
+        template: "Please Restart Your App. If This problem continues please contact us."
+      });
+    });
+  }).error(function(){
+    $ionicLoading.hide();
+    var alertPopup = $ionicPopup.alert({
+      title: 'Could Not Find Dealership Sales Representatives',
+      template: "Please Restart Your App. If This problem continues please contact us."
+    });
+  }).finally(function(){ $ionicLoading.hide();});
 };
 
 $scope.goToFinancing = function(){
@@ -135,9 +155,16 @@ $scope.goToFinancing = function(){
 };
 
 function logout() {
+  localforage.clear().then(function() {
+    // Run this code once the database has been entirely deleted.
+    console.log('Database is now empty.');
+  }).catch(function(err) {
+      // This code runs if there were any errors
+      console.log(err);
+  });
   authService.resetCurrent();
   dealerService.resetCurrent();
-  localStorage.clear();
+  // localStorage.clear();
   $ionicHistory.clearCache();
   $ionicHistory.clearHistory();
   $state.go('login', {}, {reload:true});

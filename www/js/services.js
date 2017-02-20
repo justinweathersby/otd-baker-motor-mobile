@@ -29,6 +29,9 @@ app.service('currentDealerService', function(){
   this.logo_url =
   this.background_image_url =
   this.iframeFriendly = null;
+
+  this.sales_reps = [];
+  this.service_reps = [];
 });
 
 app.service('dealerService', function($http, $ionicLoading, currentUserService, currentDealerService, DEALERSHIP_API){
@@ -51,6 +54,28 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
     currentDealerService.logo_url =
     currentDealerService.background_image_url =
     currentDealerService.iframeFriendly = null;
+  };
+
+  this.getSalesReps = function(){
+    return $http({ method: 'GET',
+                      url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/sales_reps"
+                }).success( function(data){
+                  currentDealerService.sales_reps = data;
+                  console.log("SUCCESS GET SALES REPS:: " + JSON.stringify(data));
+                }).error( function(error){
+                  console.log("ERROR GET SALES REPS:: " + JSON.stringify(error));
+                });
+  };
+
+  this.getServiceReps = function(){
+    return $http({ method: 'GET',
+                      url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps"
+                }).success( function(data){
+                  currentDealerService.service_reps = data;
+                  console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
+                }).error( function(error){
+                  console.log("ERROR GET SERVICE REPS:: " + JSON.stringify(error));
+                });
   };
 
   this.getDealership = function(){
@@ -77,12 +102,37 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
         currentDealerService.background_image_url = data.background_image_url;
         currentDealerService.iframeFriendly = data.iframeFriendly;
 
+        // $http({ method: 'GET',
+        //                   url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps"
+        //             }).success( function(data){
+        //               currentDealerService.service_reps = data;
+        //               console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
+        //             }).error( function(error){
+        //               console.log("ERROR GET SERVICE REPS:: " + JSON.stringify(error));
+        //             });
+        // $http({ method: 'GET',
+        //                   url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps"
+        //             }).success( function(data){
+        //               currentDealerService.service_reps = data;
+        //               console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
+        //             }).error( function(error){
+        //               console.log("ERROR GET SERVICE REPS:: " + JSON.stringify(error));
+        //             });
+
+        localforage.setItem('currentDealer', currentDealerService).then(function (value){
+          console.log("Value set in currentDealer:", JSON.stringify(value));
+        }).catch(function(err){
+          console.log("SET ITEM ERROR::Services::authService::currentUser::",err)
+        });
+
         $ionicLoading.hide();
       }).error( function(error){
           console.log(error);
           $ionicLoading.hide();
       });
-    };
+  };
+
+
 });
 
 
@@ -104,15 +154,32 @@ app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUs
                    headers: {'X-API-EMAIL' : user.email, 'X-API-PASS' : user.password, 'X-API-DEVICE-TOKEN' : currentUserService.device_token, 'X-API-DEVICE-TYPE' : currentUserService.device_type}})
       .success( function( data )
       {
-        currentUserService.token = data.user.auth_token;
-        currentUserService.id = data.user.id;
-        currentUserService.name = data.user.name;
-        currentUserService.email = data.user.email;
-        currentUserService.dealership_id = data.user.dealership_id
-        currentUserService.device_token = data.user.device_token
-        currentUserService.device_type = data.user.device_type
+        currentUserService.token = data.auth_token;
+        currentUserService.id = data.id;
+        currentUserService.name = data.name;
+        currentUserService.email = data.email;
+        currentUserService.dealership_id = data.dealership_id
+        // currentUserService.device_token = data.device_token
+        // currentUserService.device_type = data.device_type
 
-        $http.defaults.headers.common['Authorization'] = data.user.auth_token;
+        localforage.setItem('currentUser', currentUserService).then(function (value){
+          console.log("Value from getting currentUserService:", JSON.stringify(value));
+        }).catch(function(err){
+          console.log("SET ITEM ERROR::Services::authService::currentUser::",err)
+        });
+
+        // localforage.setItem('user_token', currentUserService.token).then(function (value) {
+        //   console.log("SUCCESSFULLY STORED TOKEN AFTER AUTHSERVICE");
+        //   localforage.setItem('user_id', currentUserService.id).then(function (value) {
+        //       console.log("SUCCESSFULLY STORED ID AFTER AUTHSERVICE");
+        //   }).catch(function(err) {
+        //       console.log("SET ITEM ERROR::Services::authService::user_id::",err);
+        //   });
+        // }).catch(function(err) {
+        //     console.log("SET ITEM ERROR::Services::authService::user_token::",err);
+        // });
+
+        $http.defaults.headers.common['Authorization'] = data.auth_token;
       }
     )
     .error( function(error)
