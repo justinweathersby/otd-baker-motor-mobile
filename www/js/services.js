@@ -6,6 +6,7 @@ app.service('currentUserService', function(){
   this.email =
   this.dealership_id =
   this.device_token =
+  this.isCustomer =
   this.device_type = null;
 
   this.roles = [];
@@ -104,23 +105,6 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
         currentDealerService.background_image_url = data.background_image_url;
         currentDealerService.iframeFriendly = data.iframeFriendly;
 
-        // $http({ method: 'GET',
-        //                   url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps"
-        //             }).success( function(data){
-        //               currentDealerService.service_reps = data;
-        //               console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
-        //             }).error( function(error){
-        //               console.log("ERROR GET SERVICE REPS:: " + JSON.stringify(error));
-        //             });
-        // $http({ method: 'GET',
-        //                   url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps"
-        //             }).success( function(data){
-        //               currentDealerService.service_reps = data;
-        //               console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
-        //             }).error( function(error){
-        //               console.log("ERROR GET SERVICE REPS:: " + JSON.stringify(error));
-        //             });
-
         localforage.setItem('currentDealer', currentDealerService).then(function (value){
           console.log("Value set in currentDealer:", JSON.stringify(value));
         }).catch(function(err){
@@ -162,26 +146,14 @@ app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUs
         currentUserService.email = data.email;
         currentUserService.dealership_id = data.dealership_id;
         currentUserService.roles = data.roles;
-        // currentUserService.device_token = data.device_token
-        // currentUserService.device_type = data.device_type
+        currentUserService.isCustomer = data.isCustomer;
 
         localforage.setItem('currentUser', currentUserService).then(function (value){
           console.log("Value from getting currentUserService:", JSON.stringify(value));
         }).catch(function(err){
           console.log("SET ITEM ERROR::Services::authService::currentUser::",err)
         });
-
-        // localforage.setItem('user_token', currentUserService.token).then(function (value) {
-        //   console.log("SUCCESSFULLY STORED TOKEN AFTER AUTHSERVICE");
-        //   localforage.setItem('user_id', currentUserService.id).then(function (value) {
-        //       console.log("SUCCESSFULLY STORED ID AFTER AUTHSERVICE");
-        //   }).catch(function(err) {
-        //       console.log("SET ITEM ERROR::Services::authService::user_id::",err);
-        //   });
-        // }).catch(function(err) {
-        //     console.log("SET ITEM ERROR::Services::authService::user_token::",err);
-        // });
-
+        
         $http.defaults.headers.common['Authorization'] = data.auth_token;
       }
     )
