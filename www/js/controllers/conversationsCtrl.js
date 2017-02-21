@@ -134,8 +134,8 @@ function startConversation(send_to, body){
 
     }).error( function(error){
             $ionicLoading.hide();
-            console.log(error);
+            console.log("ERROR::conversationCtrl::startConversation::POST Messages API::", JSON.stringify(error));
     });
-  }).catch(function(err) { console.log("GET ITEM ERROR::Matches::startConversation::", err);});
+  }).catch(function(err) { console.log("GET ITEM ERROR::Matches::startConversation::", JSON.stringify(err));});
 };
 });

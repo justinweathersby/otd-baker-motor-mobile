@@ -1,13 +1,5 @@
 app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, currentDealerService, dealerService, DEALERSHIP_API) {
 
-  //-- Get User Token String
-  // localforage.getItem('user_token').then(function(value) {
-  //   var token = value;
-  //   if(token){
-  //     console.log("Token: " + token);
-  //     $state.go('tab.dash');
-  //   }
-  // }).catch(function(err) { console.log("GET ITEM ERROR::Login::", err);});
 
   //-- Get Current User Object
   localforage.getItem('currentUser').then(function(value){
@@ -22,9 +14,9 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
       currentDealerService = value;
       console.log("After Get currentDealer. currentDealerService::" + JSON.stringify(currentDealerService));
     }).catch(function(err){
-      console.log("GET ITEM ERROR::loginCtrl::currentDealer::",err)
+      console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
     });
-  }).catch(function(err) {console.log("GET ITEM ERROR::Login::currentUser", err)});
+  }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
 
   $scope.login = function(user) {
     $ionicLoading.show({
@@ -34,12 +26,6 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
 
     if ($scope.loginForm.$valid){
       authService.login(user).success(function(){
-
-        // localStorage.setItem('user', user.email);
-        // localStorage.setItem('dealership_id', currentUserService.dealership_id);
-        // localStorage.setItem('name', currentUserService.name);
-        // localStorage.setItem('token', currentUserService.token);
-        // localStorage.setItem('id', currentUserService.id);
 
         //--Try to preload the dealership after click
         dealerService.getDealership().success(function(){

@@ -108,12 +108,13 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
         localforage.setItem('currentDealer', currentDealerService).then(function (value){
           console.log("Value set in currentDealer:", JSON.stringify(value));
         }).catch(function(err){
-          console.log("SET ITEM ERROR::Services::authService::currentUser::",err)
+          console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
         });
 
         $ionicLoading.hide();
       }).error( function(error){
-          console.log(error);
+          console.log("ERROR::services::getDealership::GET::deaelerships::", JSON.stringify(error));
+          console.log("ERROR::MORE INFO::currentUserService:", JSON.stringify(currentUserService));
           $ionicLoading.hide();
       });
   };
@@ -151,15 +152,15 @@ app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUs
         localforage.setItem('currentUser', currentUserService).then(function (value){
           console.log("Value from getting currentUserService:", JSON.stringify(value));
         }).catch(function(err){
-          console.log("SET ITEM ERROR::Services::authService::currentUser::",err)
+          console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
         });
-        
+
         $http.defaults.headers.common['Authorization'] = data.auth_token;
       }
     )
     .error( function(error)
     {
-      console.log(error);
+      console.log("ERROR::services::authService::POST::login::", JSON.stringify(error));
     });
   }; //--End of login function
 

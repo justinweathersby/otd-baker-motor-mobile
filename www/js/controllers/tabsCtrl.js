@@ -163,7 +163,7 @@ function logout() {
     console.log('Database is now empty.');
   }).catch(function(err) {
       // This code runs if there were any errors
-      console.log(err);
+      console.log("ERROR::tabsCtrl::logout::clear::", JSON.stringify(err));
   });
   authService.resetCurrent();
   dealerService.resetCurrent();

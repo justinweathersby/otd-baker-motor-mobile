@@ -45,7 +45,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
         localforage.setItem('currentUser', currentUserService).then(function (value){
           console.log("Value set in currentDealer:", JSON.stringify(value));
         }).catch(function(err){
-          console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::",err)
+          console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::", JSON.stringify(err));
         });
 
         //--Try to preload the dealership after click
@@ -90,16 +90,11 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
         currentUserService.roles = data.roles;
         currentUserService.isCustomer = data.isCustomer;
 
-        // localStorage.setItem('user', currentUserService.email);
-        // localStorage.setItem('dealership_id', currentUserService.dealership_id);
-        // localStorage.setItem('name', currentUserService.name);
-        // localStorage.setItem('token', currentUserService.token);
-        // localStorage.setItem('id', currentUserService.id);
         localforage.setItem('currentUser', currentUserService).then(function (value){
           console.log("Value set in currentDealer:", JSON.stringify(value));
           $state.go('tab.dash');
         }).catch(function(err){
-          console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::",err)
+          console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::", JSON.stringify(err));
         });
 
     	})
