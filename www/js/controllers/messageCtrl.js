@@ -83,9 +83,7 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
         template: '<p>Sending Message...</p><ion-spinner></ion-spinner>'
     });
     localforage.getItem('currentUser').then(function(value){
-      console.log("Current User: ", JSON.stringify(value));
       angular.copy(value, currentUserService)
-      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
       localforage.getItem('conversation').then(function(value) {
         $scope.current_conv = value;
         $http({ method: 'POST',
