@@ -13,7 +13,13 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
   });
 
   if(currentDealerService.id == null){
-    dealershipInit();
+    //-- Get Current User Object
+    localforage.getItem('currentUser').then(function(value){
+      angular.copy(value, currentUserService);
+      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
+      dealershipInit();
+    }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+
   }
 
   //--Initialize Function for Controller

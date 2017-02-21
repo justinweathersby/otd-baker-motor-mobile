@@ -40,50 +40,38 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
         template: '<p>Loading...</p><ion-spinner></ion-spinner>'
     });
     localforage.getItem('currentUser').then(function(value){
-      console.log("Current User: ", JSON.stringify(value));
-      currentUserService = value;
-      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
+      angular.copy(value, currentUserService)
 
       localforage.getItem('conversation').then(function(value) {
         $scope.current_conv = value;
         $http({ method: 'GET',
-                url: DEALERSHIP_API.url + "/messages",
-                params: {
-                  "conversation_id": $scope.current_conv.id
-                },
-                headers: {'Authorization' : currentUserService.token}
-              })
-              .success( function( data )
-              {
-                console.log("GOT MESSAGES SUCCESS::::");
-                console.log( JSON.stringify(data, null, 4));
-                $scope.messages = data.messages;
-              }
-            )
-            .error( function(error)
-            {
-              console.log( JSON.stringify(error, null, 4));
-              if (error.errors === "Not authenticated"){
-                $cordovaDialogs.alert(
-                  "Sorry you have been logged out. Please re-login",
-                  "Woops",  // a title
-                  "OK"                                // the button text
-                );
-                $state.go('login');
-              }
-              $state.go('tab.conversations');
+                  url: DEALERSHIP_API.url + "/messages",
+                  params: { "conversation_id": $scope.current_conv.id },
+                  headers: {'Authorization' : currentUserService.token}
+              }).success( function( data ){
+                  console.log("GOT MESSAGES SUCCESS::::");
+                  console.log( JSON.stringify(data, null, 4));
+                  $scope.messages = data.messages;
+              }).error( function(error){
+                  console.log( JSON.stringify(error, null, 4));
+                  if (error.errors === "Not authenticated"){
+                    $cordovaDialogs.alert(
+                      "Sorry you have been logged out. Please re-login",
+                      "Woops",  // a title
+                      "OK"                                // the button text
+                    );
+                    $state.go('login');
+                  }
+                  $state.go('tab.conversations');
             }).finally(function() {
-                  console.log("AFTER MESSAGES HAVE LOADED");
                  $ionicLoading.hide();
                  $scope.$broadcast('scroll.refreshComplete');
                  $timeout(function() {
                     viewScroll.resize(true);
                     viewScroll.scrollBottom(true);
                   }, 1000);
-
             });
         }).catch(function(err) { console.log("GET ITEM ERROR::Messages::getMessages::conversation", JSON.stringify(err));});
-
     }).catch(function(err) { console.log("GET ITEM ERROR::Messages::getMessages::user_token", JSON.stringify(err));});
   };
 
@@ -96,7 +84,7 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
     });
     localforage.getItem('currentUser').then(function(value){
       console.log("Current User: ", JSON.stringify(value));
-      currentUserService = value;
+      angular.copy(value, currentUserService)
       console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
       localforage.getItem('conversation').then(function(value) {
         $scope.current_conv = value;

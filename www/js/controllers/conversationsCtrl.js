@@ -11,7 +11,6 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
     }
   });
 
-
   $scope.current_user = currentUserService;
   $rootScope.message_badge_count = 0;
 
@@ -23,7 +22,7 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
     $ionicLoading.show({
         template: '<p>Loading...</p><ion-spinner></ion-spinner>'
     });
-    // localforage.getItem('user_token').then(function(value) {
+
     localforage.getItem('currentUser').then(function(value){
       currentUserService = value;
       $http({ method: 'GET',
@@ -117,10 +116,8 @@ function startConversation(send_to, body){
             },
             headers: {'Authorization' : currentUserService.token}
     }).success( function( data ){
-            $ionicLoading.hide();
-            // console.log('Return Data post new message from Api:', JSON.stringify(data, null, 4));
-            //--add new current coversation
-            //--then go to tab.messages
+            $ionicLoading.hide()
+            
             currentConversation.id = data.conversation_id;
             currentConversation.sender_id = data.partner_id;
             currentConversation.sender_name = data.partner_name;
@@ -128,9 +125,6 @@ function startConversation(send_to, body){
             localforage.setItem('conversation', currentConversation).then(function(value){
               $state.go('tab.messages');
             });
-
-            // console.log('Beefore headed to messages:', JSON.stringify(currentConversation, null, 4));
-            // console.log('Current Convo id:', JSON.stringify(currentConversation.id, null, 4));
 
     }).error( function(error){
             $ionicLoading.hide();

@@ -60,8 +60,10 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
   };
 
   this.getSalesReps = function(){
+    console.log("CHECK::Services::getSalesReps::currentUser::", JSON.stringify(currentUserService));
     return $http({ method: 'GET',
-                      url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/sales_reps"
+                      url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/sales_reps",
+                      headers: {'Authorization' : currentUserService.token}
                 }).success( function(data){
                   currentDealerService.sales_reps = data;
                   console.log("SUCCESS GET SALES REPS:: " + JSON.stringify(data));
@@ -71,8 +73,10 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
   };
 
   this.getServiceReps = function(){
+    console.log("CHECK::Services::getServiceReps::currentUser::", JSON.stringify(currentUserService));
     return $http({ method: 'GET',
-                      url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps"
+                      url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps",
+                      headers: {'Authorization' : currentUserService.token}
                 }).success( function(data){
                   currentDealerService.service_reps = data;
                   console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
@@ -82,6 +86,12 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
   };
 
   this.getDealership = function(){
+    //-- Get Current User Object
+    // localforage.getItem('currentUser').then(function(value){
+    //   currentUserService = value;
+      console.log("SUCCESS::getDealership::currentUserService::" + JSON.stringify(currentUserService));
+    // }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+
     return $http({ method: 'GET',
         url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id
     }).success( function( data ){
@@ -106,7 +116,7 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
         currentDealerService.iframeFriendly = data.iframeFriendly;
 
         localforage.setItem('currentDealer', currentDealerService).then(function (value){
-          console.log("Value set in currentDealer:", JSON.stringify(value));
+          // console.log("Value set in currentDealer:", JSON.stringify(value));
         }).catch(function(err){
           console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
         });
@@ -150,7 +160,7 @@ app.service('authService', function($http, $ionicPlatform, $ionicPush, currentUs
         currentUserService.isCustomer = data.isCustomer;
 
         localforage.setItem('currentUser', currentUserService).then(function (value){
-          console.log("Value from getting currentUserService:", JSON.stringify(value));
+          // console.log("Value from getting currentUserService:", JSON.stringify(value));
         }).catch(function(err){
           console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
         });

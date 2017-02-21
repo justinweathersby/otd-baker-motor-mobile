@@ -50,7 +50,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/conversations',
     cache: false,
     views: {
-      'tab-financing': {
+      'tab-chat': {
         templateUrl: 'templates/tab-conversations.html',
         controller: 'ConversationsCtrl'
       }
@@ -60,7 +60,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/messages',
     cache: false,
     views: {
-      'tab-financing': {
+      'tab-chat': {
         templateUrl: 'templates/tab-message.html',
         controller: 'MessageCtrl'
       }

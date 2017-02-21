@@ -3,16 +3,11 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
 
   //-- Get Current User Object
   localforage.getItem('currentUser').then(function(value){
-    console.log("Current User: ", JSON.stringify(value));
-    currentUserService = value;
-    console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
-
-
+    angular.copy(value, currentUserService)
+    
     //-- Load Current Dealer
     localforage.getItem('currentDealer').then(function (value){
-      console.log("Value from getting currentDealer:", JSON.stringify(value));
-      currentDealerService = value;
-      console.log("After Get currentDealer. currentDealerService::" + JSON.stringify(currentDealerService));
+      angular.copy(value, currentDealerService);
     }).catch(function(err){
       console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
     });

@@ -1,6 +1,6 @@
 app.controller('TabsCtrl', function($scope, $state,
                                     $ionicActionSheet, $ionicHistory, $ionicPlatform, $ionicLoading, $ionicPopup,
-                                    authService, currentDealerService, dealerService){
+                                    authService, currentUserService, currentDealerService, dealerService){
 
 $scope.$on('cloud:push:notification', function(event, data) {
   var msg = data.message;
@@ -111,6 +111,7 @@ $scope.openSpecialsModal = function(){
 $scope.openMoreModal = function(){
   var hideSheet = $ionicActionSheet.show({
     buttons: [
+      { text: 'Financing' },
       { text: 'Logout' }
     ],
     cancelText: 'Cancel',
@@ -133,29 +134,36 @@ $scope.goToChat = function(){
   $ionicLoading.show({
       template: '<p>Loading...</p><ion-spinner></ion-spinner>'
   });
-  dealerService.getSalesReps().success(function(){
-    dealerService.getServiceReps().success(function(){
-      $ionicLoading.hide();
-      $state.go('tab.conversations');
-    }).error(function(){
-      $ionicLoading.hide();
-      var alertPopup = $ionicPopup.alert({
-        title: 'Could Not Find Dealership Service Representatives',
-        template: "Please Restart Your App. If This problem continues please contact us."
-      });
-    });
-  }).error(function(){
-    $ionicLoading.hide();
-    var alertPopup = $ionicPopup.alert({
-      title: 'Could Not Find Dealership Sales Representatives',
-      template: "Please Restart Your App. If This problem continues please contact us."
-    });
-  }).finally(function(){ $ionicLoading.hide();});
-};
 
-// $scope.goToFinancing = function(){
-//    openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
-// };
+    //-- Get Current User Object
+    localforage.getItem('currentUser').then(function(value){
+      angular.copy(value, currentUserService);
+      dealerService.getSalesReps().success(function(){
+        dealerService.getServiceReps().success(function(){
+          $ionicLoading.hide();
+          console.log("GOING TO CONVERSATIONS::::");
+          $state.go('tab.conversations');
+        }).error(function(){
+          $ionicLoading.hide();
+          var alertPopup = $ionicPopup.alert({
+            title: 'Could Not Find Dealership Service Representatives',
+            template: "Please Restart Your App. If This problem continues please contact us."
+          });
+        });
+      }).error(function(){
+        $ionicLoading.hide();
+        var alertPopup = $ionicPopup.alert({
+          title: 'Could Not Find Dealership Sales Representatives',
+          template: "Please Restart Your App. If This problem continues please contact us."
+        });
+      }).finally(function(){ $ionicLoading.hide();});
+      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
+    }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+
+  // }
+
+
+};
 
 function logout() {
   localforage.clear().then(function() {
@@ -167,7 +175,6 @@ function logout() {
   });
   authService.resetCurrent();
   dealerService.resetCurrent();
-  // localStorage.clear();
   $ionicHistory.clearCache();
   $ionicHistory.clearHistory();
   $state.go('login', {}, {reload:true});
