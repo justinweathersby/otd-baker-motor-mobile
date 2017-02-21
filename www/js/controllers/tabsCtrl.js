@@ -119,6 +119,9 @@ $scope.openMoreModal = function(){
       hideSheet();
       switch(index){
         case 0:
+        openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
+        break;
+        case 1:
         logout();
         break;
       }
@@ -150,9 +153,9 @@ $scope.goToChat = function(){
   }).finally(function(){ $ionicLoading.hide();});
 };
 
-$scope.goToFinancing = function(){
-   openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
-};
+// $scope.goToFinancing = function(){
+//    openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
+// };
 
 function logout() {
   localforage.clear().then(function() {
