@@ -65,8 +65,25 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
                       url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/sales_reps",
                       headers: {'Authorization' : currentUserService.token}
                 }).success( function(data){
-                  currentDealerService.sales_reps = data;
-                  console.log("SUCCESS GET SALES REPS:: " + JSON.stringify(data));
+                  console.log("INFO::services::getSalesReps::data::" + JSON.stringify(data));
+                  currentDealerService.sales_reps = [];
+                  var newData = angular.copy(data);
+                  currentDealerService.sales_reps.push(newData);
+                  // $scope.content.codehttp.forEach(function(value, key) {
+                  //     if (value != 200) {
+                  //         // for demonstrational purposes only:
+                  //         document.write("Entry #"+(key+1)+" contained a bad status: "+value);
+                  //     }
+                  // })
+
+
+                  localforage.setItem('currentDealer', currentDealerService).then(function (value){
+                    // console.log("Value set in currentDealer:", JSON.stringify(value));'
+                    console.log("SUCCESS GET SALES REPS:: " + JSON.stringify(currentDealerService.sales_reps));
+                  }).catch(function(err){
+                    console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
+                  });
+
                 }).error( function(error){
                   console.log("ERROR GET SALES REPS:: " + JSON.stringify(error));
                 });
@@ -78,8 +95,20 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
                       url: DEALERSHIP_API.url + "/dealerships/" + currentUserService.dealership_id + "/service_reps",
                       headers: {'Authorization' : currentUserService.token}
                 }).success( function(data){
-                  currentDealerService.service_reps = data;
-                  console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(data));
+                    currentDealerService.service_reps = [];
+                    var newData = angular.copy(data);
+                    currentDealerService.service_reps.push(newData);
+
+                    console.log("1_) returned service reps: " + JSON.stringify(data));
+                    console.log("2_) currentDealerService.service_reps: " + JSON.stringify(currentDealerService.service_reps));
+
+                    localforage.setItem('currentDealer', currentDealerService).then(function (value){
+                      // console.log("Value set in currentDealer:", JSON.stringify(value));
+                      console.log("SUCCESS GET SERVICE REPS:: " + JSON.stringify(currentDealerService.service_reps));
+                    }).catch(function(err){
+                      console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
+                    });
+
                 }).error( function(error){
                   console.log("ERROR GET SERVICE REPS:: " + JSON.stringify(error));
                 });
@@ -117,6 +146,7 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
 
         localforage.setItem('currentDealer', currentDealerService).then(function (value){
           // console.log("Value set in currentDealer:", JSON.stringify(value));
+          console.log("INFO::services::getDealership::currentDealerService::", JSON.stringify(currentDealerService));
         }).catch(function(err){
           console.log("SET ITEM ERROR::Services::authService::currentUser::", JSON.stringify(err));
         });

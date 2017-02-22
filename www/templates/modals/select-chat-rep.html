@@ -1,0 +1,63 @@
+<ion-modal-view style="">
+  <ion-nav-bar class="bar-dark">
+    <ion-nav-title>
+        <img src="{{dealership.logo_url}}" style="margin-left:auto; margin-right:auto; display:block; padding-top: 8px;" height="40px" alt="">
+     </ion-nav-title>
+  </ion-nav-bar>
+<ion-content class="has-header" style="padding: 10px">
+  <h2 class="text-center" style="font-weight:200">
+    Please Choose a Representative
+  </h2>
+  <hr />
+  <div class="list">
+
+      <a ng-repeat="rep in reps" class="item item-thumbnail-left" ng-click="showPopup(rep.id);">
+        <img src="cover.jpg">
+        <h2>{{rep.name}}</h2>
+        <p>Mauris vitae hendrerit neque. Cras laoreet elit mauris, tincidunt tempus.</p>
+      </a>
+  </div>
+
+  <!-- <div class="col" style="position:relative; padding:0">
+    <div class="row" style="padding:0;">
+      <profileimageslider ng-if="matchSelected"/>
+    </div>
+    <div class="row" style="position:absolute; bottom:0; left:0;">
+      <h2 style="color: white;text-shadow: 0 0 5px black;">{{match.name}}</h2>
+    </div>
+  </div> -->
+  <!-- <div class="col">
+    <div class="row profile-item-label">
+      Description
+    </div>
+    <div class="row profile-item">
+      {{match.description}}
+    </div>
+    <hr class="profile-item-divider"/>
+    <div class="row profile-item-label">
+      Gender
+    </div>
+    <div class="row profile-item">
+      {{match.gender | capitalizeFirst}}
+    </div>
+    <hr class="profile-item-divider"/>
+    <div class="row profile-item-label">
+      Workout Time
+    </div>
+    <div class="row profile-item">
+      {{match.workout_time | capitalizeFirst}}
+    </div>
+    <hr class="profile-item-divider"/>
+
+    <div class="row profile-item-label">
+      Workout Level
+    </div>
+    <div class="row profile-item">
+      {{match.workout_level | capitalizeFirst}}
+    </div>
+  </div> -->
+  </ion-content>
+  <ion-footer-bar align-title="left" class="bar-assertive" style="background: #455A64">
+    <button class="button button-full" ng-click="closeModal()" style="margin: 0; font-variant: small-caps; font-size: 16px;font-family:'-apple-system', 'Helvetica Neue', 'Roboto', 'Segoe UI', sans-serif;">Back</button>
+  </ion-footer-bar>
+</ion-modal-view>

@@ -1,5 +1,5 @@
 app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, $stateParams, $cordovaBadge,
-                                        $ionicPopup, $ionicLoading,
+                                        $ionicPopup, $ionicLoading, $ionicModal,
                                         currentUserService, currentConversation, currentDealerService, dealerService,
                                         DEALERSHIP_API)
 {
@@ -24,29 +24,57 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
     });
 
     localforage.getItem('currentUser').then(function(value){
-      currentUserService = value;
-      $http({ method: 'GET',
-              url: DEALERSHIP_API.url + "/conversations",
-              headers: {'Authorization' : currentUserService.token}
-      }).success( function( data ){
-              console.log("Data from conversations: ", JSON.stringify(data, null, 4));
-              $scope.conversations = data.conversations;
-              $ionicLoading.hide();
-      }).error( function(error){
-              console.log("Error in Conversations", JSON.stringify(error));
-              if (error.errors === "Not authenticated"){
-                var alertPopup = $ionicPopup.alert({
-                  title: 'Error',
-                  template: 'Sorry you have been logged out. Please re-login'
-                });
-              }
-              $state.go('login');
-              $ionicLoading.hide();
-      }).finally(function() {
-             // Stop the ion-refresher from spinning
-             $scope.$broadcast('scroll.refreshComplete');
-      });
-    }).catch(function(err) { console.log("GET ITEM ERROR::Conversations::getConversation::", JSON.stringify(err));});
+      // currentUserService = value;
+        angular.copy(value, currentUserService)
+
+        //-- Load Current Dealer
+        localforage.getItem('currentDealer').then(function (value){
+          angular.copy(value, currentDealerService);
+
+          dealerService.getSalesReps().success(function(data){
+            angular.copy(data, currentDealerService.sales_reps);
+
+            dealerService.getServiceReps().success(function(data){
+              angular.copy(data, currentDealerService.service_reps);
+              // console.log("GOING TO CONVERSATIONS::::");
+              // console.log("current dealer sales::", JSON.stringify(currentDealerService.sales_reps));
+              // console.log("current dealer sales::", JSON.stringify(currentDealerService.service_reps));
+              // $state.go('tab.conversations');
+
+              $http({ method: 'GET',
+                      url: DEALERSHIP_API.url + "/conversations",
+                      headers: {'Authorization' : currentUserService.token}
+              }).success( function( data ){
+                      console.log("Data from conversations: ", JSON.stringify(data, null, 4));
+                      $scope.conversations = data.conversations;
+                      $ionicLoading.hide();
+              }).error( function(error){
+                      console.log("Error in Conversations", JSON.stringify(error));
+                      if (error.errors === "Not authenticated"){
+                        var alertPopup = $ionicPopup.alert({
+                          title: 'Error',
+                          template: 'Sorry you have been logged out. Please re-login'
+                        });
+                      }
+                      $state.go('login');
+                      $ionicLoading.hide();
+              }).finally(function() {
+                     // Stop the ion-refresher from spinning
+                     $scope.$broadcast('scroll.refreshComplete');
+              });
+
+
+
+
+            }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getServiceReps()::" + JSON.stringify(error));});
+          }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getSalesReps()::" + JSON.stringify(error));});
+        }).catch(function(err){
+          console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
+        });
+      }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+
+
+    // }).catch(function(err) { console.log("GET ITEM ERROR::Conversations::getConversation::", JSON.stringify(err));});
   };
 
   $scope.openConversation = function(convo){
@@ -70,8 +98,8 @@ $scope.showPopup = function(send_to_id) {
   // An elaborate, custom popup
   var myPopup = $ionicPopup.show({
     templateUrl: "templates/popups/send-message-input.html",
-    cssClass: 'showMessagePopup',
-    title: 'Send A Message To Connect',
+    cssClass: 'sendMessagePopup',
+    title: 'Send A Message To Chat',
     scope: $scope,
     buttons: [
       { text: 'Cancel',
@@ -96,40 +124,93 @@ $scope.showPopup = function(send_to_id) {
     console.log('Tapped!', res);
   });
  };
+ //
+ // $scope.reps=[];
 
-function startConversation(send_to, body){
-  $ionicLoading.show({
-      template: '<p>Sending Message...</p><ion-spinner></ion-spinner>',
-      delay: 500
-  });
+ function startConversation(send_to, body){
+   $ionicLoading.show({
+       template: '<p>Sending Message...</p><ion-spinner></ion-spinner>',
+       delay: 500
+   });
 
-  $scope.token = "";
-  localforage.getItem('currentUser').then(function(value){
-    currentUserService = value;
-    $http({ method: 'POST',
-            url: DEALERSHIP_API.url + "/messages",
-            data: {
-              "message":{
-              "body": body
-              },
-              "recipient_id":send_to
-            },
-            headers: {'Authorization' : currentUserService.token}
-    }).success( function( data ){
-            $ionicLoading.hide()
-            
-            currentConversation.id = data.conversation_id;
-            currentConversation.sender_id = data.partner_id;
-            currentConversation.sender_name = data.partner_name;
+   $scope.token = "";
+   localforage.getItem('currentUser').then(function(value){
+     currentUserService = value;
+     $http({ method: 'POST',
+             url: DEALERSHIP_API.url + "/messages",
+             data: {
+               "message":{
+               "body": body
+               },
+               "recipient_id":send_to
+             },
+             headers: {'Authorization' : currentUserService.token}
+     }).success( function( data ){
+             $ionicLoading.hide()
 
-            localforage.setItem('conversation', currentConversation).then(function(value){
-              $state.go('tab.messages');
-            });
+             currentConversation.id = data.conversation_id;
+             currentConversation.sender_id = data.partner_id;
+             currentConversation.sender_name = data.partner_name;
 
-    }).error( function(error){
-            $ionicLoading.hide();
-            console.log("ERROR::conversationCtrl::startConversation::POST Messages API::", JSON.stringify(error));
-    });
-  }).catch(function(err) { console.log("GET ITEM ERROR::Matches::startConversation::", JSON.stringify(err));});
-};
+             localforage.setItem('conversation', currentConversation).then(function(value){
+               $state.go('tab.messages');
+             });
+
+     }).error( function(error){
+             $ionicLoading.hide();
+             console.log("ERROR::conversationCtrl::startConversation::POST Messages API::", JSON.stringify(error));
+     });
+   }).catch(function(err) { console.log("GET ITEM ERROR::Matches::startConversation::", JSON.stringify(err));});
+ };
+
+ $ionicModal.fromTemplateUrl('templates/modals/select-chat-rep.html', {
+       scope: $scope,
+       animation: 'slide-in-up'
+     }).then(function(modal) {
+       $scope.repsModal = modal;
+     });
+     $scope.openRepModal = function(chat_type) {
+      //  $scope.matchSelected = match;
+      //  $scope.matchSelectedLoaded = true;
+      // localforage.getItem('currentUser').then(function(value){
+        // angular.copy(value, currentUserService);
+
+        // localforage.getItem('currentUser').then(function(value){
+        //   angular.copy(value, currentUser);
+          // dealerService.getSalesReps().success(function(data){
+          //   angular.copy(data, currentDealer.sales_reps);
+          //   console.log("current dealer sales::", JSON.stringify(currentDealerService.sales_reps));
+          //   console.log("current dealer sales::", JSON.stringify(currentDealerService.service_reps));
+          //
+
+            console.log("current user service::(scope)::", JSON.stringify(currentUserService));
+            if (chat_type == "service"){ $scope.reps = currentDealerService.service_reps; }
+            else{ $scope.reps = currentDealerService.sales_reps; }
+
+            console.log("current reps(scope)::", JSON.stringify($scope.reps));
+
+             $scope.repsModal.show();
+          // }).error(function(){});
+          // dealerService.getServiceReps();
+          // }).catch(function(err) { console.log("GET ITEM ERROR::ConversationsCtrl::ionicModal::currentUser: ", JSON.stringify(err));});
+
+        // }).catch(function(err) { console.log("GET ITEM ERROR::ConversationsCtrl::ionicModal::currentDealer: ", JSON.stringify(err));});
+
+
+
+
+    //
+
+
+     };
+     $scope.closeModal = function() {
+       $scope.repsModal.hide();
+     };
+     // Cleanup the modal when we're done with it!
+     $scope.$on('$destroy', function() {
+       $scope.repsModal.remove();
+});
+
+
+
 });

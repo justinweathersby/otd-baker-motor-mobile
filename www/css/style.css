@@ -10,3 +10,7 @@
   right: 0;
   top: 0;
 }
+
+.sendMessagePopup .popup-container .popup{
+  width:85%; border-radius: 10px; align-self: flex-start; margin-top: 60px;
+}

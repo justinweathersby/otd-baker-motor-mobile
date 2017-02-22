@@ -10,7 +10,19 @@ $scope.$on('cloud:push:notification', function(event, data) {
   });
 });
 
-$scope.dealership = currentDealerService;
+if (currentDealerService){
+  $scope.dealership = currentDealerService;
+}
+else{
+    //-- Load Current Dealer
+    localforage.getItem('currentDealer').then(function (value){
+      angular.copy(value, currentDealerService);
+      $scope.dealership = currentDealerService;
+    }).catch(function(err){
+      console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
+    });
+}
+
 
 function openExternalURL(url, template, alertString){
   if (url){
@@ -131,34 +143,33 @@ $scope.openMoreModal = function(){
 };
 
 $scope.goToChat = function(){
-  $ionicLoading.show({
-      template: '<p>Loading...</p><ion-spinner></ion-spinner>'
-  });
-
-    //-- Get Current User Object
-    localforage.getItem('currentUser').then(function(value){
-      angular.copy(value, currentUserService);
-      dealerService.getSalesReps().success(function(){
-        dealerService.getServiceReps().success(function(){
-          $ionicLoading.hide();
-          console.log("GOING TO CONVERSATIONS::::");
+  // $ionicLoading.show({
+  //     template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+  // });
+  console.log("Click goToChat Tab::");
+  // localforage.getItem('currentUser').then(function(value){
+  //   angular.copy(value, currentUserService)
+  //
+  //   //-- Load Current Dealer
+  //   localforage.getItem('currentDealer').then(function (value){
+  //     angular.copy(value, currentDealerService);
+  //
+  //     dealerService.getSalesReps().success(function(data){
+  //       angular.copy(data, currentDealerService.sales_reps);
+  //
+  //       dealerService.getServiceReps().success(function(data){
+  //         angular.copy(data, currentDealerService.service_reps);
+  //         console.log("GOING TO CONVERSATIONS::::");
+  //         console.log("current dealer sales::", JSON.stringify(currentDealerService.sales_reps));
+  //         console.log("current dealer sales::", JSON.stringify(currentDealerService.service_reps));
           $state.go('tab.conversations');
-        }).error(function(){
-          $ionicLoading.hide();
-          var alertPopup = $ionicPopup.alert({
-            title: 'Could Not Find Dealership Service Representatives',
-            template: "Please Restart Your App. If This problem continues please contact us."
-          });
-        });
-      }).error(function(){
-        $ionicLoading.hide();
-        var alertPopup = $ionicPopup.alert({
-          title: 'Could Not Find Dealership Sales Representatives',
-          template: "Please Restart Your App. If This problem continues please contact us."
-        });
-      }).finally(function(){ $ionicLoading.hide();});
-      console.log("After Get currentUser. currentUserService::" + JSON.stringify(currentUserService));
-    }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+  //       }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getServiceReps()::" + JSON.stringify(error));});
+  //     }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getSalesReps()::" + JSON.stringify(error));});
+  //   }).catch(function(err){
+  //     console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
+  //   });
+  // }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+
 
   // }
 

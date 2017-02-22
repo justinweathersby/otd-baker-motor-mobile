@@ -68,3 +68,14 @@
 .startChatButtons:hover{
   color: #d7dada;
 }
+.sendMessagePopup{
+  background: rgba(0, 0, 0, .6);
+}
+.sendMessagePopup .popup{
+  width:85%;
+  border-radius: 10px;
+  align-self: flex-start;
+  margin-top: 60px;
+  background: white;
+  box-shadow: 0 0 10px black;
+}

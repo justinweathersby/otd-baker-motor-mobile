@@ -1,10 +1,10 @@
 <ion-footer-bar style="background-color:#444; height: 100px;">
   <div class="button-bar">
-     <a class="button button-icon icon ion-pricetags startChatButtons" ng-click='goToService()'
+     <a class="button button-icon icon ion-pricetags startChatButtons" ng-click="openRepModal('sales')"
      style="
 
      "><span style="display: block;">Chat Sales</span></a>
-     <a class="button button-icon icon ion-settings startChatButtons" href="#/tab/connect"
+     <a class="button button-icon icon ion-settings startChatButtons" ng-click="openRepModal('service')"
      style=""><span style="display: block;">Chat Service</span></a>
   </div>
 </ion-footer-bar>
