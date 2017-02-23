@@ -1,10 +1,9 @@
 app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ionicPopup, authService, currentUserService, currentDealerService, dealerService, DEALERSHIP_API) {
 
-
   //-- Get Current User Object
   localforage.getItem('currentUser').then(function(value){
     angular.copy(value, currentUserService)
-    
+
     //-- Load Current Dealer
     localforage.getItem('currentDealer').then(function (value){
       angular.copy(value, currentDealerService);
@@ -15,8 +14,9 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
 
   $scope.login = function(user) {
     $ionicLoading.show({
-     template: '<p style="font-family:Brandon;color:grey;">Logging in</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',
-     hideOnStageChange: true
+       template: '<p style="font-family:Brandon;color:grey;">Logging in</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',
+       hideOnStateChange: true,
+       duration: 5000
     });
 
     if ($scope.loginForm.$valid){
@@ -54,10 +54,10 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
   }; //end of login function
 
   $scope.resetPassword = function(email) {
-
     $ionicLoading.show({
-     template: '<p style="font-family:Brandon;color:grey;">Checking to see if your account exists..</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',
-     hideOnStageChange: true
+       template: '<p style="font-family:Brandon;color:grey;">Checking to see if your account exists..</p><ion-spinner class="spinner-positive" icon="dots"></ion-spinner>',
+       hideOnStateChange: true,
+       duration: 5000
     });
 
     $http({method: 'POST', url: DEALERSHIP_API.url + '/reset_password?email=' + email})
@@ -81,7 +81,6 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
        $state.go('signup');
     });
   };//end of reset password function
-
 
   $scope.goToSignUp = function() {
     $state.go('dealership-list');

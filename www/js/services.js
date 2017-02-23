@@ -10,6 +10,7 @@ app.service('currentUserService', function(){
   this.device_type = null;
 
   this.roles = [];
+  // check logs for blank
 });
 
 app.service('currentDealerService', function(){

@@ -20,7 +20,9 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
     }
     console.log("inside getConversations");
     $ionicLoading.show({
-        template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+        template: '<p>Loading...</p><ion-spinner></ion-spinner>',
+        hideOnStateChange: true,
+        duration: 5000
     });
 
     localforage.getItem('currentUser').then(function(value){
@@ -36,10 +38,6 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
 
             dealerService.getServiceReps().success(function(data){
               angular.copy(data, currentDealerService.service_reps);
-              // console.log("GOING TO CONVERSATIONS::::");
-              // console.log("current dealer sales::", JSON.stringify(currentDealerService.sales_reps));
-              // console.log("current dealer sales::", JSON.stringify(currentDealerService.service_reps));
-              // $state.go('tab.conversations');
 
               $http({ method: 'GET',
                       url: DEALERSHIP_API.url + "/conversations",
@@ -63,18 +61,12 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
                      $scope.$broadcast('scroll.refreshComplete');
               });
 
-
-
-
             }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getServiceReps()::" + JSON.stringify(error));});
           }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getSalesReps()::" + JSON.stringify(error));});
         }).catch(function(err){
           console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
         });
       }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
-
-
-    // }).catch(function(err) { console.log("GET ITEM ERROR::Conversations::getConversation::", JSON.stringify(err));});
   };
 
   $scope.openConversation = function(convo){
@@ -91,7 +83,7 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
   };
 
 
-  // Triggered on a button click, or some other target
+//-- Triggered on a button click, or some other target
 $scope.showPopup = function(send_to_id) {
   $scope.data = {};
 
@@ -124,8 +116,6 @@ $scope.showPopup = function(send_to_id) {
     console.log('Tapped!', res);
   });
  };
- //
- // $scope.reps=[];
 
  function startConversation(send_to, body){
    $ionicLoading.show({
@@ -170,38 +160,10 @@ $scope.showPopup = function(send_to_id) {
        $scope.repsModal = modal;
      });
      $scope.openRepModal = function(chat_type) {
-      //  $scope.matchSelected = match;
-      //  $scope.matchSelectedLoaded = true;
-      // localforage.getItem('currentUser').then(function(value){
-        // angular.copy(value, currentUserService);
-
-        // localforage.getItem('currentUser').then(function(value){
-        //   angular.copy(value, currentUser);
-          // dealerService.getSalesReps().success(function(data){
-          //   angular.copy(data, currentDealer.sales_reps);
-          //   console.log("current dealer sales::", JSON.stringify(currentDealerService.sales_reps));
-          //   console.log("current dealer sales::", JSON.stringify(currentDealerService.service_reps));
-          //
-
-            console.log("current user service::(scope)::", JSON.stringify(currentUserService));
-            if (chat_type == "service"){ $scope.reps = currentDealerService.service_reps; }
-            else{ $scope.reps = currentDealerService.sales_reps; }
-
-            console.log("current reps(scope)::", JSON.stringify($scope.reps));
-
-             $scope.repsModal.show();
-          // }).error(function(){});
-          // dealerService.getServiceReps();
-          // }).catch(function(err) { console.log("GET ITEM ERROR::ConversationsCtrl::ionicModal::currentUser: ", JSON.stringify(err));});
-
-        // }).catch(function(err) { console.log("GET ITEM ERROR::ConversationsCtrl::ionicModal::currentDealer: ", JSON.stringify(err));});
-
-
-
-
-    //
-
-
+        console.log("current user service::(scope)::", JSON.stringify(currentUserService));
+        if (chat_type == "service"){ $scope.reps = currentDealerService.service_reps; }
+        else{ $scope.reps = currentDealerService.sales_reps; }
+        $scope.repsModal.show();
      };
      $scope.closeModal = function() {
        $scope.repsModal.hide();
@@ -209,8 +171,5 @@ $scope.showPopup = function(send_to_id) {
      // Cleanup the modal when we're done with it!
      $scope.$on('$destroy', function() {
        $scope.repsModal.remove();
-});
-
-
-
+     });
 });

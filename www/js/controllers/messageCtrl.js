@@ -37,10 +37,12 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
 
   $scope.getMessages = function() {
     $ionicLoading.show({
-        template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+        template: '<p>Loading...</p><ion-spinner></ion-spinner>',
+        hideOnStateChange: true,
+        duration: 5000
     });
     localforage.getItem('currentUser').then(function(value){
-      angular.copy(value, currentUserService)
+      angular.copy(value, currentUserService);
 
       localforage.getItem('conversation').then(function(value) {
         $scope.current_conv = value;
@@ -77,10 +79,11 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
 
   $scope.getMessages();
 
-
   $scope.reply = function(body){
     $ionicLoading.show({
-        template: '<p>Sending Message...</p><ion-spinner></ion-spinner>'
+        template: '<p>Sending Message...</p><ion-spinner></ion-spinner>',
+        hideOnStateChange: true,
+        duration: 5000
     });
     localforage.getItem('currentUser').then(function(value){
       angular.copy(value, currentUserService)
@@ -97,13 +100,6 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
                   headers: {'Authorization' : currentUserService.token}
         }).success( function( data ){
                 $ionicLoading.hide();
-                // var message = {
-                //   "message":{
-                //   "body": $scope.replyMessage.body
-                //   },
-                //   "recipient_id": $scope.current_conv.sender_id
-                // };
-                // $scope.messages.push(message);
                 delete $scope.replyMessage.body;
                 $scope.getMessages();
         }).error( function(error){

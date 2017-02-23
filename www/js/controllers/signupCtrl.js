@@ -3,16 +3,10 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
                                       authService, currentUserService, currentDealerService, dealerService,
                                       DEALERSHIP_API)
 {
-  // $scope.$on('cloud:push:notification', function(event, data) {
-  //   var msg = data.message;
-  //   var alertPopup = $ionicPopup.alert({
-  //     title: msg.title,
-  //     template: msg.text
-  //   });
-  // });
-
   $ionicLoading.show({
-    template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+    template: '<p>Loading...</p><ion-spinner></ion-spinner>',
+    hideOnStateChange: true,
+    duration: 5000
   });
   $http({ method: 'GET',
           url: DEALERSHIP_API.url + "/dealerships"
@@ -30,36 +24,41 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
   );
 
   $scope.dealershipSelected = function(dealership_id){
+    console.log("Dealership Selected::dealership_id::", dealership_id);
     if (dealership_id != null){
       dealerService.resetCurrent();
       currentUserService.dealership_id = dealership_id;
 
       //--This is for determining if this is a new user or old user changing thier viewing dealership
-      if(currentUserService.token !== null) // you had to have loged in if you have a token
+      if(currentUserService.token != null) // you had to have loged in if you have a token
       {
         $ionicHistory.clearCache();
         $ionicLoading.show({
-          template: '<p>Loading...</p><ion-spinner></ion-spinner>'
+          template: '<p>Loading...</p><ion-spinner></ion-spinner>',
+          hideOnStateChange: true,
+          duration: 5000
         });
 
         localforage.setItem('currentUser', currentUserService).then(function (value){
           console.log("Value set in currentDealer:", JSON.stringify(value));
+
+          //--Try to preload the dealership after click
+          dealerService.getDealership().success(function(){
+            $state.go('tab.dash');
+            $ionicLoading.hide();
+
+          }).error(function(){
+            $ionicLoading.hide();
+            var alertPopup = $ionicPopup.alert({
+              title: 'Could Not Get Dealership Profile',
+              template: "Please Restart Your App. If This problem continues please contact us."
+            });
+            $state.go('login');
+          });
+
+
         }).catch(function(err){
           console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::", JSON.stringify(err));
-        });
-
-        //--Try to preload the dealership after click
-        dealerService.getDealership().success(function(){
-          $state.go('tab.dash');
-          $ionicLoading.hide();
-
-        }).error(function(){
-          $ionicLoading.hide();
-          var alertPopup = $ionicPopup.alert({
-            title: 'Could Not Get Dealership Profile',
-            template: "Please Restart Your App. If This problem continues please contact us."
-          });
-          $state.go('login');
         });
 
       }
