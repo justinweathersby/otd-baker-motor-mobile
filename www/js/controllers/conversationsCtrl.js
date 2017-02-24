@@ -14,6 +14,16 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
   $scope.current_user = currentUserService;
   $rootScope.message_badge_count = 0;
 
+  $scope.initReps = function(){
+    if (currentDealerService){
+      $scope.reps = currentDealerService.sales_reps;
+    }
+    else{
+      $state.go('conversations');
+    }
+
+  }
+
   $scope.getConversations = function() {
     if(window.cordova){
       $cordovaBadge.clear();
@@ -39,6 +49,10 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
             dealerService.getServiceReps().success(function(data){
               angular.copy(data, currentDealerService.service_reps);
 
+              console.log("currentDealerService.sales_reps::",  currentDealerService.sales_reps);
+              console.log("currentDealerService.service_reps::",  currentDealerService.service_reps);
+              console.log("Calling API for Conversations...");
+
               $http({ method: 'GET',
                       url: DEALERSHIP_API.url + "/conversations",
                       headers: {'Authorization' : currentUserService.token}
@@ -59,6 +73,7 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
               }).finally(function() {
                      // Stop the ion-refresher from spinning
                      $scope.$broadcast('scroll.refreshComplete');
+                     $ionicLoading.hide();
               });
 
             }).error(function(error){console.log("ERROR::tabsCtrl::goToChat::getServiceReps()::" + JSON.stringify(error));});
@@ -67,7 +82,11 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
           console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
         });
       }).catch(function(err) {console.log("GET ITEM ERROR::LoginCtrl::currentUser", JSON.stringify(err));});
+      $ionicLoading.hide();
+      $scope.$broadcast('scroll.refreshComplete');
   };
+
+  $scope.getConversations();
 
   $scope.openConversation = function(convo){
     //--Set Conversation
@@ -123,7 +142,7 @@ $scope.showPopup = function(send_to_id) {
        delay: 500
    });
 
-   $scope.token = "";
+  //  $scope.token = "";
    localforage.getItem('currentUser').then(function(value){
      currentUserService = value;
      $http({ method: 'POST',
@@ -153,23 +172,5 @@ $scope.showPopup = function(send_to_id) {
    }).catch(function(err) { console.log("GET ITEM ERROR::Matches::startConversation::", JSON.stringify(err));});
  };
 
- $ionicModal.fromTemplateUrl('templates/modals/select-chat-rep.html', {
-       scope: $scope,
-       animation: 'slide-in-up'
-     }).then(function(modal) {
-       $scope.repsModal = modal;
-     });
-     $scope.openRepModal = function(chat_type) {
-        console.log("current user service::(scope)::", JSON.stringify(currentUserService));
-        if (chat_type == "service"){ $scope.reps = currentDealerService.service_reps; }
-        else{ $scope.reps = currentDealerService.sales_reps; }
-        $scope.repsModal.show();
-     };
-     $scope.closeModal = function() {
-       $scope.repsModal.hide();
-     };
-     // Cleanup the modal when we're done with it!
-     $scope.$on('$destroy', function() {
-       $scope.repsModal.remove();
-     });
+
 });

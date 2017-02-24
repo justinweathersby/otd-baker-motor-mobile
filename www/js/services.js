@@ -70,13 +70,6 @@ app.service('dealerService', function($http, $ionicLoading, currentUserService, 
                   currentDealerService.sales_reps = [];
                   var newData = angular.copy(data);
                   currentDealerService.sales_reps.push(newData);
-                  // $scope.content.codehttp.forEach(function(value, key) {
-                  //     if (value != 200) {
-                  //         // for demonstrational purposes only:
-                  //         document.write("Entry #"+(key+1)+" contained a bad status: "+value);
-                  //     }
-                  // })
-
 
                   localforage.setItem('currentDealer', currentDealerService).then(function (value){
                     // console.log("Value set in currentDealer:", JSON.stringify(value));'

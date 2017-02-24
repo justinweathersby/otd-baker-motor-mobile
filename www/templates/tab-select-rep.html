@@ -1,0 +1,42 @@
+<ion-view>
+  <!-- <ion-nav-bar class="bar-dark">
+    <ion-nav-title>
+        <img src="{{dealership.logo_url}}" style="margin-left:auto; margin-right:auto; display:block; padding-top: 8px;" height="40px" alt="">
+     </ion-nav-title>
+  </ion-nav-bar> -->
+<ion-content ng-init="initReps()" class="has-header gradientBackgroundImage" style="padding: 10px">
+  <h2 class="text-center" style="font-weight:200">
+    Please Choose a Representative
+  </h2>
+  <!-- <hr style="box-shadow: 0 0 5px #3f636f; border-top:0; border-color:white"/>
+  <div class="list">
+    <a ng-repeat="rep in reps" class="item item-thumbnail-left conversation-item" ng-click="showPopup(rep.id);">
+      <img ng-src="{{rep.image}}">
+      <h2 style="padding-top: 10px; font-size: 22px;">{{rep.name}}</h2>
+      <p>{{rep.role}}</p>
+    </a>
+  </div> -->
+  </ion-content>
+  <!-- <ion-footer-bar class="bar-assertive" style="background: #455A64">
+    <a ng-href="#/tab/conversations" nav-direction="exit" class="button"  style="width:100%; margin: 0; font-variant: small-caps; font-size: 16px;font-family:'-apple-system', 'Helvetica Neue', 'Roboto', 'Segoe UI', sans-serif;">Back</a>
+  </ion-footer-bar> -->
+</ion-view>
+
+
+
+<ion-view view-title="Select Rep">
+  <ion-content class="gradientBackgroundImage" has-footer="true" scroll="true">
+    <p>
+      hello world
+    </p>
+
+
+  </ion-content>
+  <ion-footer-bar style="background-color:#444; height: 100px; width:100%; bottom:44px;">
+      <div class="button-bar">
+         <a href="#/tab/select-rep"  nav-direction="enter" class="button button-icon icon ion-pricetags startChatButtons"><span style="display: block;">Chat Sales</span></a>
+         <a href="#/tab/connect"  nav-direction="enter" class="button button-icon icon ion-settings startChatButtons"><span style="display: block;">Chat Service</span></a>
+      </div>
+  </ion-footer-bar>
+
+</ion-view>

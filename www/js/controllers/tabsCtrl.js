@@ -1,14 +1,30 @@
-app.controller('TabsCtrl', function($scope, $state,
+app.controller('TabsCtrl', function($scope, $rootScope, $state,
                                     $ionicActionSheet, $ionicHistory, $ionicPlatform, $ionicLoading, $ionicPopup,
+                                    $cordovaBadge, $cordovaDialogs,
                                     authService, currentUserService, currentDealerService, dealerService){
 
 $scope.$on('cloud:push:notification', function(event, data) {
-  var msg = data.message;
-  var alertPopup = $ionicPopup.alert({
-    title: msg.title,
-    template: msg.text
-  });
+  var payload = data.message.raw.additionalData.payload;
+  console.log("PAYLOAD FROM PUSH" + JSON.stringify(payload));
+  console.log("MESSAGE BADGE COUNT" + $scope.message_badge_count);
+  if (payload.user_message == 1){
+    $rootScope.$apply(function () {
+      $rootScope.message_badge_count++;
+    });
+  }
+  else{
+    var msg = data.message;
+    $cordovaDialogs.alert(
+      msg.text,  // the message
+      msg.title, // a title
+      "OK"       // the button text
+    ).then(function() {
+      $cordovaBadge.clear();
+    });
+  }
 });
+
+$rootScope.message_badge_count = 0;
 
 if (currentDealerService){
   $scope.dealership = currentDealerService;

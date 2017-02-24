@@ -56,6 +56,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     }
   })
+  .state('tab.select-rep', {
+    url: '/select-rep',
+    cache: false,
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/tab-select-rep.html',
+        controller: 'ConversationsCtrl'
+      }
+    }
+  })
   .state('tab.messages', {
     url: '/messages',
     cache: false,
