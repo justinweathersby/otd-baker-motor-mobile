@@ -9,7 +9,14 @@
     Please Choose a Representative
   </h2>
   <hr style="box-shadow: 0 0 5px #3f636f; border-top:0; border-color:white"/>
-  <div class="list">
+  <div ng-hide="rep.length">
+    <div class="no-matches-container">
+        <h4 style="text-align: center; color: white">Sorry</h4>
+        <hr style=" display: block; height: 0px; border: 0; border-top: 1px solid #fff; border-bottom: 1px solid #fff; border-radius:2px; margin: 1em auto; padding: 0; width: 90% "/>
+        <p style="color: white">This dealership currently has 0 active representatives.</p>
+    </div>
+  </div>
+  <div ng-show="reps.length" class="list">
     <a ng-repeat="rep in reps" class="item item-thumbnail-left conversation-item" ng-click="showPopup(rep.id);">
       <img ng-src="{{rep.image}}">
       <h2 style="padding-top: 10px; font-size: 22px;">{{rep.name}}</h2>
