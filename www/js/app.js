@@ -43,9 +43,5 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    if (window.cordova && window.cordova.logger) {
-      window.cordova.logger.__onDeviceReady();
-    }
   });
 });

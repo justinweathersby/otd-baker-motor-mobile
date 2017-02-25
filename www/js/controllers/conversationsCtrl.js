@@ -14,16 +14,6 @@ app.controller('ConversationsCtrl', function($rootScope, $scope, $state, $http, 
   $scope.current_user = currentUserService;
   $rootScope.message_badge_count = 0;
 
-  $scope.initReps = function(){
-    if (currentDealerService){
-      $scope.reps = currentDealerService.sales_reps;
-    }
-    else{
-      $state.go('conversations');
-    }
-
-  }
-
   $scope.getConversations = function() {
     if(window.cordova){
       $cordovaBadge.clear();
@@ -171,6 +161,25 @@ $scope.showPopup = function(send_to_id) {
      });
    }).catch(function(err) { console.log("GET ITEM ERROR::Matches::startConversation::", JSON.stringify(err));});
  };
+
+ $ionicModal.fromTemplateUrl('templates/modals/select-chat-rep.html', {
+       scope: $scope,
+       animation: 'slide-in-up'
+     }).then(function(modal) {
+       $scope.repsModal = modal;
+     });
+     $scope.openRepModal = function(chat_type) {
+        if (chat_type == "service"){ $scope.reps = currentDealerService.service_reps; }
+        else{ $scope.reps = currentDealerService.sales_reps; }
+        $scope.repsModal.show();
+     };
+     $scope.closeModal = function() {
+       $scope.repsModal.hide();
+     };
+     // Cleanup the modal when we're done with it!
+     $scope.$on('$destroy', function() {
+       $scope.repsModal.remove();
+    });
 
 
 });

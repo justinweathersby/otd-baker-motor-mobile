@@ -1,7 +1,6 @@
-<!-- class="gradientBackgroundImage" has-footer="true" scroll="true" -->
 <ion-view view-title="Conversations">
-  <ion-content>
-    <!-- <ion-refresher
+  <ion-content class="gradientBackgroundImage" has-footer="true" scroll="true" >
+    <ion-refresher
       pulling-text="Pull to refresh..."
       on-refresh="getConversations()">
     </ion-refresher>
@@ -19,22 +18,15 @@
           <h2 class="convo-name" style="color:#212121">{{convo.sender_name}} </h2>
           <p ng-show="current_user.isCustomer" class="convo-last-message" style="color: #6E8E9D;font-size: 12px;">{{convo.sender_dealership}} : {{convo.sender_role}}</p>
           <p ng-hide="current_user.isCustomer" class="convo-last-message" style="color: #6E8E9D;font-size: 12px;">{{convo.last_message.body}}</p>
-
         </a>
-
-
-    </div> -->
-    <p>
-      hello world
-    </p>
+    </div>
 
 
   </ion-content>
   <ion-footer-bar style="background-color:#444; height: 100px; width:100%; bottom:44px;">
       <div class="button-bar">
-         <a href="#/tab/select-rep"  nav-direction="enter" class="button button-icon icon ion-pricetags startChatButtons"><span style="display: block;">Chat Sales</span></a>
-         <a href="#/tab/connect"  nav-direction="enter" class="button button-icon icon ion-settings startChatButtons"><span style="display: block;">Chat Service</span></a>
+         <a ng-click="openRepModal('sales')" class="button button-icon icon ion-pricetags startChatButtons"><span style="display: block;">Chat Sales</span></a>
+         <a ng-click="openRepModal('service')"  class="button button-icon icon ion-settings startChatButtons"><span style="display: block;">Chat Service</span></a>
       </div>
   </ion-footer-bar>
-
 </ion-view>
