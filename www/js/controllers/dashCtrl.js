@@ -4,13 +4,6 @@ app.controller('DashCtrl', function($scope, $sce, $http, $state, $timeout,
                                     DEALERSHIP_API) {
 
 
-  $scope.$on('cloud:push:notification', function(event, data) {
-    var msg = data.message;
-    var alertPopup = $ionicPopup.alert({
-      title: msg.title,
-      template: msg.text
-    });
-  });
 
   if(currentDealerService.id == null){
     //-- Get Current User Object
