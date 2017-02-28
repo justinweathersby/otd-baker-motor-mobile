@@ -31,6 +31,8 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
     }).then(function(t) {
       currentUserService.device_token = t.token;
       currentUserService.device_type = t.type;
+
+      console.log("DEVICE TOKEN:::::::", t.token);
     });
     TestFairy.begin("993218db594324f249e28bfa5a72f74f0d21732d");
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

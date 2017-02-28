@@ -129,16 +129,21 @@ background: rgba(102, 101, 106, 0.6);
   font-size: 16px;
 }
 
-
-
 .gradientBackgroundImage{
   background: #00EFFD; /* For browsers that do not support gradients */
-background: -webkit-linear-gradient(#00EFFD, #0067d2); /* For Safari 5.1 to 6.0 */
-background: -o-linear-gradient(#00EFFD, #0067d2); /* For Opera 11.1 to 12.0 */
-background: -moz-linear-gradient(#00EFFD, #0067d2); /* For Firefox 3.6 to 15 */
-background: linear-gradient(#00EFFD, #0067d2); /* Standard syntax */
-  // background: url('../img/bluebkg.png') no-repeat center center fixed; padding-top:0;
-  //   -webkit-background-size: cover;
-  //   -moz-background-size: cover;
-  //   background-size: cover;
+  background: -webkit-linear-gradient(#00EFFD, #0067d2); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#00EFFD, #0067d2); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#00EFFD, #0067d2); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#00EFFD, #0067d2); /* Standard syntax */
+}
+
+.convoImageUnreadOverlay{
+  background-color: #f14e4e;
+  padding: .4em;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 18px;
+  bottom: 13px;
 }

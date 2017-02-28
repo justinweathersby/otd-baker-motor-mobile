@@ -9910,3 +9910,13 @@ a.button {
   /* For Firefox 3.6 to 15 */
   background: linear-gradient(#00EFFD, #0067d2);
   /* Standard syntax */ }
+
+.convoImageUnreadOverlay {
+  background-color: #f14e4e;
+  padding: .4em;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 18px;
+  bottom: 13px; }
