@@ -1,4 +1,7 @@
-<ion-view view-title="{{current_conv.sender_name}}">
+<ion-view cache-view="false">
+  <ion-nav-title>
+     {{current_conv.sender_name}}
+    </ion-nav-title>
   <ion-nav-buttons side="left">
     <button class="button back-button buttons button-clear header-item" ui-sref="tab.conversations">
       <i class="icon ion-ios-arrow-back"> Back</i>
