@@ -25,7 +25,6 @@ app.config(function($ionicCloudProvider, $compileProvider){
 
 app.run(function($ionicPlatform, $ionicPush, currentUserService) {
   $ionicPlatform.ready(function() {
-
     $ionicPush.register().then(function(t) {
       return $ionicPush.saveToken(t);
     }).then(function(t) {
@@ -44,6 +43,11 @@ app.run(function($ionicPlatform, $ionicPush, currentUserService) {
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+    if (window.indexedDB) {
+       console.log("I'm in WKWebView!");
+    } else {
+       console.log("I'm in UIWebView");
     }
   });
 });

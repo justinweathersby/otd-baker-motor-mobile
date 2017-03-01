@@ -7,6 +7,9 @@ app.controller('LoginCtrl', function($scope, $http, $ionicLoading, $state, $ioni
     //-- Load Current Dealer
     localforage.getItem('currentDealer').then(function (value){
       angular.copy(value, currentDealerService);
+      if(currentUserService.token){
+        $state.go('tab.dash');
+      }
     }).catch(function(err){
       console.log("GET ITEM ERROR::loginCtrl::currentDealer::", JSON.stringify(err));
     });

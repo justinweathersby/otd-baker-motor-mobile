@@ -1,5 +1,5 @@
 app.controller('TabsCtrl', function($scope, $rootScope, $state,
-                                    $ionicActionSheet, $ionicHistory, $ionicPlatform, $ionicLoading, $ionicPopup,
+                                    $ionicActionSheet, $ionicHistory, $ionicPlatform, $ionicLoading, $ionicPopup, $cordovaInAppBrowser,
                                     $cordovaBadge, $cordovaDialogs,
                                     authService, currentUserService, currentDealerService, dealerService){
 
@@ -47,9 +47,55 @@ function openExternalURL(url, template, alertString){
 };
 
 function openLinkInBrowser(url, redirect){
+  console.log("LOG::OPEN IN APP BROWSER, URL::", url);
+  console.log("LOG::OPEN IN APP BROWSER, REDIRECT::", redirect);
   $ionicPlatform.ready(function() {
-      var inAppBrowser = window.open(url, '_blank', 'location=no');
+      var options = {
+         location: 'no',
+         clearcache: 'yes',
+         toolbar: 'yes',
+         closebuttoncaption: 'Home'
+       };
+
+      $cordovaInAppBrowser.open(url, '_blank', options)
+      .then(function(event) {
+        // success
+        console.log("LOG::SUCCESS::OPEN IN APP BROWSER... URL::", url);
+        console.log("LOG::SUCCESS::OPEN IN APP BROWSER... EVENT::", event);
+      })
+      .catch(function(event) {
+        // error
+          console.log("ERROR::OPEN IN APP BROWSER... EVENT::", event);
+          console.log("ERROR::OPEN IN APP BROWSER... URL::", url);
+      });
+
+
+    // $cordovaInAppBrowser.close();
   });
+
+  // $rootScope.$on('$cordovaInAppBrowser:loadstart', function(e, event){
+  //
+  // });
+  //
+  // $rootScope.$on('$cordovaInAppBrowser:loadstop', function(e, event){
+    // insert CSS via code / file
+    // $cordovaInAppBrowser.insertCSS({
+    //   code: 'body {background-color:blue;}'
+    // });
+
+    // insert Javascript via code / file
+    // $cordovaInAppBrowser.executeScript({
+    //   file: 'script.js'
+    // });
+  // });
+  //
+  // $rootScope.$on('$cordovaInAppBrowser:loaderror', function(e, event){
+  //
+  // });
+  //
+  // $rootScope.$on('$cordovaInAppBrowser:exit', function(e, event){
+  //
+  // });
 };
 
 function noUrlAlertAndRedirect(fromString){
