@@ -171,10 +171,10 @@ $scope.openSpecialsModal = function(){
       hideSheet();
       switch(index){
         case 0:
-        openExternalURL(currentDealerService.new_cars_url, "tab.specials", "Specials");
+        openExternalURL(currentDealerService.specials_url, "tab.specials", "Specials");
         break;
         case 1:
-        openExternalURL(currentDealerService.new_cars_url, "tab.service-specials", "Service Specials");
+        openExternalURL(currentDealerService.service_specials_url, "tab.service-specials", "Service Specials");
         break;
       }
     }
@@ -193,7 +193,7 @@ $scope.openMoreModal = function(){
       hideSheet();
       switch(index){
         case 0:
-        openExternalURL(currentDealerService.new_cars_url, "tab.financing", "Financing");
+        openExternalURL(currentDealerService.financing_url, "tab.financing", "Financing");
         break;
         case 1:
         logout();

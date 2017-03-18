@@ -110,7 +110,6 @@ $scope.showPopup = function(send_to_id) {
         type: 'button-small button-positive',
         onTap: function(e) {
           if (!$scope.data.msg) {
-            //don't allow the user to close unless he enters wifi password
             e.preventDefault();
           } else {
             startConversation(send_to_id, $scope.data.msg);
@@ -123,6 +122,7 @@ $scope.showPopup = function(send_to_id) {
 
   myPopup.then(function(res) {
     console.log('Tapped!', res);
+    $scope.repsModal.hide();
   });
  };
 
