@@ -2,7 +2,7 @@
   <ion-nav-title>
      Conversations
     </ion-nav-title>
-  <ion-content class="gradientBackgroundImage" has-footer="true" scroll="true" >
+  <ion-content class="" has-footer="true" scroll="true" >
     <ion-refresher
       pulling-text="Pull to refresh..."
       on-refresh="getConversations()">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="list">
-        <a ng-repeat="convo in conversations"class="item item-avatar conversation-item" ng-click="openConversation(convo)" style="">
+        <a ng-repeat="convo in conversations"class="item item-avatar conversation-item" ng-click="openConversation(convo)" style="box-shadow: 0 0 5px black;">
           <img ng-src="{{convo.sender_image}}">
           <span ng-show="!convo.recipient_read" class="convoImageUnreadOverlay">
           </span>
@@ -25,7 +25,6 @@
           <p ng-hide="current_user.isCustomer" class="convo-last-message" style="color: #6E8E9D;font-size: 12px;">{{convo.last_message.body}}</p>
         </a>
     </div>
-
 
   </ion-content>
   <ion-footer-bar style="background-color:#444; height: 100px; width:100%; bottom:44px;">

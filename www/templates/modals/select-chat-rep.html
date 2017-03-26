@@ -4,7 +4,7 @@
         <img src="{{dealership.logo_url}}" style="margin-left:auto; margin-right:auto; display:block; padding-top: 8px;" height="40px" alt="">
      </ion-nav-title>
   </ion-nav-bar>
-<ion-content class="has-header gradientBackgroundImage" style="padding: 10px">
+<ion-content class="has-header" style="padding: 10px">
   <h2 class="text-center" style="font-weight:200">
     Please Choose a Representative
   </h2>
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="list">
-    <a ng-repeat="rep in reps" class="item item-thumbnail-left conversation-item" ng-click="showPopup(rep.id);">
+    <a ng-repeat="rep in reps" class="item item-thumbnail-left conversation-item" ng-click="showPopup(rep.id);" style="box-shadow: 0 0 5px black;">
       <img ng-src="{{rep.image}}">
       <h2 style="padding-top: 10px; font-size: 22px;">{{rep.name}}</h2>
       <p>{{rep.role}}</p>

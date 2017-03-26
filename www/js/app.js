@@ -1,6 +1,6 @@
 var app = angular.module('otd-baker-motor-app', ['ionic', 'ionic.cloud', 'ngCordova' ]);
 
-app.config(function($ionicCloudProvider, $compileProvider){
+app.config(function($ionicCloudProvider, $compileProvider, $ionicConfigProvider){
   $ionicCloudProvider.init({
     "core": {
       "app_id": "3a5069a7"
@@ -19,6 +19,8 @@ app.config(function($ionicCloudProvider, $compileProvider){
       }
     }
   });
+
+  $ionicConfigProvider.tabs.position('bottom');
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|map|geo|skype):/);
 });
