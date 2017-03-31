@@ -17,8 +17,6 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
     }
   });
 
-  window.addEventListener('native.keyboardshow', keyboardShowHandler);
-  window.addEventListener('native.keyboardhide', keyboardHideHandler);
 
   function keyboardShowHandler(e){
       console.log('Keyboard height is: ' + e.keyboardHeight);
@@ -29,10 +27,25 @@ app.controller('MessageCtrl', function($rootScope, $scope, $state, $http, $state
       $ionicScrollDelegate.scrollBottom(true);
   }
 
-  $rootScope.message_badge_count = 0;
-  $scope.current_user = currentUserService;
+  $scope.$on('$ionicView.enter', function() {
 
-  var viewScroll = $ionicScrollDelegate.$getByHandle('userMessageScroll');
+    var viewScroll = $ionicScrollDelegate.$getByHandle('userMessageScroll');
+
+    cordova.plugins.Keyboard.disableScroll(true);
+    window.addEventListener('native.keyboardshow', keyboardShowHandler);
+    window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+    $rootScope.message_badge_count = 0;
+    $scope.current_user = currentUserService;
+  });
+
+
+  $scope.$on('$ionicView.leave', function() {
+    window.removeEventListener('native.keyboardshow', keyboardShowHandler);
+    window.removeEventListener('native.keyboardhide', keyboardHideHandler);
+
+    cordova.plugins.Keyboard.disableScroll(false);
+  });
 
 
   $scope.getMessages = function() {
