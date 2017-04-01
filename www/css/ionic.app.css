@@ -9826,6 +9826,35 @@ a.button {
   text-align: center;
   box-shadow: 0 0 10px black; }
 
+.login-page .row {
+  padding: 0;
+  margin: 0; }
+
+.login-page .col {
+  padding: 0;
+  margin: 0; }
+
+.login-page .button {
+  margin: 0; }
+
+.login-page label#rounded {
+  border-radius: 25px;
+  height: 50px; }
+  .login-page label#rounded i {
+    height: 44px;
+    background: #323232;
+    width: 44px;
+    border-radius: 22px;
+    margin-left: -12px;
+    padding-left: 11px;
+    padding-top: 5px;
+    font-size: 30px; }
+
+.login-page #container {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto; }
+
 .tabs .tab-item .badge.badge-assertive, .badge.badge-assertive {
   opacity: 1; }
 
