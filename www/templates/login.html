@@ -8,7 +8,7 @@
     </div>
     <div class="row" style="height:10vh">
       <div class="col">
-        <button class="button button-full login-btn" style="background-color: #f0aa5b; height:100%" ng-click="login(user)">
+        <button class="button button-full login-btn" style="background-color: #f0aa5b; height:10vh" ng-click="login(user)">
           LOGIN
         </button>
       </div>
@@ -22,7 +22,7 @@
           </label>
           <label id = "rounded" class="item item-input">
             <i class="icon ion-ios-locked-outline placeholder-icon" style="padding-left: 13px; padding-top: 2px;"></i>
-            <input type="text" placeholder="PASSWORD" ng-model="user.password" required>
+            <input type="password" placeholder="PASSWORD" ng-model="user.password" required>
           </label>
           <div class="button button-full" style="background:transparent; color: rgba(256,256,256,.6); font-weight:600; font-size:16px; letter-spacing: 1px;" ng-click="goToForgotPassword()">
             forgot password?
@@ -36,5 +36,4 @@
   <div class="bar bar-footer login-footer">
     <div class="title" ng-click="goToSignUp()">Create an account</div>
   </div>
-
 </ion-view>

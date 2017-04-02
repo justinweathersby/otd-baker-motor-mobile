@@ -91,7 +91,21 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
 
         localforage.setItem('currentUser', currentUserService).then(function (value){
           console.log("Value set in currentDealer:", JSON.stringify(value));
-          $state.go('tab.dash');
+
+          //--Try to preload the dealership after click
+          dealerService.getDealership().success(function(){
+            $state.go('tab.dash');
+            $ionicLoading.hide();
+
+          }).error(function(){
+            $ionicLoading.hide();
+            var alertPopup = $ionicPopup.alert({
+              title: 'Could Not Get Dealership Profile',
+              template: "Please Restart Your App. If This problem continues please contact us."
+            });
+            $state.go('login');
+          });
+          
         }).catch(function(err){
           console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::", JSON.stringify(err));
         });
