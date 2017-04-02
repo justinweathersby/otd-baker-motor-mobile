@@ -118,6 +118,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     -webkit-align-self: center;
     -ms-flex-item-align: center;
     align-self: center;
+    max-width: 90%;
+    max-height: 25vh;
     }
   }
   label#rounded{

@@ -9885,7 +9885,9 @@ a.button {
       flex: 0 1 auto;
       -webkit-align-self: center;
       -ms-flex-item-align: center;
-      align-self: center; }
+      align-self: center;
+      max-width: 90%;
+      max-height: 25vh; }
   .login-page label#rounded {
     border-radius: 25px;
     height: 50px; }
