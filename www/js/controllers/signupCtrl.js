@@ -8,6 +8,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
     hideOnStateChange: true,
     duration: 5000
   });
+  
   $http({ method: 'GET',
           url: DEALERSHIP_API.url + "/dealerships"
         })
@@ -105,7 +106,7 @@ app.controller('SignupCtrl', function($scope, $state, $http, $stateParams,
             });
             $state.go('login');
           });
-          
+
         }).catch(function(err){
           console.log("SET ITEM ERROR::singupCtrl::dealershipSelected::currentUser::", JSON.stringify(err));
         });
